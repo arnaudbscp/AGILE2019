@@ -61,13 +61,13 @@ public class UtilisateurRessource {
         }
     }
 
-    /* GET ONE USER WITH LOGIN */
+    /* GET ONE USER WITH LOGIN AND PASSWORD*/
     @GET
-    @Path("/{login}")
+    @Path("/{login}/{password}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getNom(@PathParam("login") String login) {
+    public Response getNom(@PathParam("login") String login, @PathParam("password") String password) {
         DataAccess dataAccess =DataAccess.begin();
-        UtilisateurEntity utilisateurEntity = dataAccess.getUserByLogin(login);
+        UtilisateurEntity utilisateurEntity = dataAccess.getUserByLoginPassword(login, password);
         if ( utilisateurEntity != null ) {
             dataAccess.closeConnection(true);
             return Response.ok(utilisateurEntity).build();
@@ -77,19 +77,20 @@ public class UtilisateurRessource {
         }
     }
 
-    /* UPADATE ONE USER WITH ID */
+    /* UPADATE ONE USER WITH LOGIN AND PASSWORD */
     @PUT
-    @Path("/{login}")
+    @Path("/{login}/{password}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("login") String login, UtilisateurEntity utilisateurEntity) {
+    public Response update(@PathParam("login") String login, @PathParam("password") String password,UtilisateurEntity utilisateurEntity) {
         DataAccess dataAccess = DataAccess.begin();
-        UtilisateurEntity utilisateurBDD = dataAccess.getUserByLogin(login);
+        UtilisateurEntity utilisateurBDD = dataAccess.getUserByLoginPassword(login, password);
         if (utilisateurBDD == null) {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
         } else {
             try {
                 utilisateurBDD.setLogin(utilisateurEntity.getLogin());
                 utilisateurBDD.setPassword(utilisateurEntity.getPassword());
+                utilisateurBDD.setRole(utilisateurEntity.getRole());
                 dataAccess.updateUser(utilisateurBDD);
                 dataAccess.closeConnection(true);
                 return Response.ok(utilisateurBDD).build(); //  .created(instanceURI).build();
