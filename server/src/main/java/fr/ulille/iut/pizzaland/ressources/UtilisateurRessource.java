@@ -44,6 +44,9 @@ public class UtilisateurRessource {
         else if(utilisateurEntity.getPassword() == null){
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity("password not specified\n").build();
         }
+        else if(utilisateurEntity.getEmail() == null){
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("email not specified\n").build();
+        }
         utilisateurEntity.setRole("user");
 
         try {
