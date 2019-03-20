@@ -1,8 +1,6 @@
 package fr.ulille.iut.pizzaland.ressources;
 
 import fr.ulille.iut.pizzaland.Main;
-import fr.ulille.iut.pizzaland.dao.DataAccess;
-import fr.ulille.iut.pizzaland.dao.PizzaEntity;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;

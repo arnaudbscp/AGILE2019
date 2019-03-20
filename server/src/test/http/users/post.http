@@ -1,0 +1,22 @@
+POST http://localhost:8080/api/v1/users
+Accept: */*
+Cache-Control: no-cache
+Content-type:application/json
+
+{ "nom" : "peperoni"  }
+###
+POST http://localhost:8080/api/v1/users
+
+HTTP/1.1 201 Created
+Location: http://localhost:8080/api/v1/users/9
+Content-Type: application/json
+Content-Length: 25
+
+{
+  "id": 9,
+  "login": "franc",
+  "password": "franc",
+  "role": "user",
+}
+
+Response code: 201 (Created); Time: 1109ms; Content length: 25 bytes

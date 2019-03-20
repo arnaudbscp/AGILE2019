@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * Hello resource (exposed at "myresource" path)
+ * Hello resource (exposed at "hello" path)
  */
 @Path("hello")
 public class HelloRessource extends HelloWorld {

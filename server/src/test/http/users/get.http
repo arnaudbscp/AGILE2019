@@ -1,0 +1,42 @@
+GET http://localhost:8080/api/v1/users
+Accept: */*
+Cache-Control: no-cache
+
+###
+GET http://localhost:8080/api/v1/users
+
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 198
+
+[
+  {
+    "id": 1,
+    "login": "axel",
+    "password": "axel",
+    "role": "admin"
+  },
+  {
+    "id": 2,
+    "login": "mervo",
+    "password": "mervo",
+    "role": "user"
+  },
+  {
+    "id": 3,
+    "login": "jonas",
+    "password": "jonas",
+    "role": "user"
+  },
+  {
+    "id": 4,
+    "login": "toto",
+    "password": "toto",
+    "role": "user"
+  }
+]
+
+Response code: 200 (OK); Time: 29ms; Content length: 230 bytes
+
+###
+

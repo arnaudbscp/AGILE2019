@@ -2,7 +2,6 @@ package fr.ulille.iut.pizzaland.ressources;
 
 import fr.ulille.iut.pizzaland.ApiV1;
 import fr.ulille.iut.pizzaland.dao.DataAccess;
-import fr.ulille.iut.pizzaland.dao.PizzaEntity;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.Test;
 
