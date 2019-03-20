@@ -63,154 +63,87 @@ public class DataAccess {
         et.begin();
     }
 
-    // Ingredient operations
-    
+
+    // Users operations
+
     /**
-     * Charge la liste de tous les ingrédientns de la base
-     * @return La liste des ingredients
+     * Charge la liste de tous les utilisateurs de la base
+     * @return La liste des utilisateurs
      */
-	public List<IngredientEntity> getAllIngredients() {
-        TypedQuery<IngredientEntity> query = em.createNamedQuery("FindAllIngredients", IngredientEntity.class);
+    public List<UtilisateurEntity> getAllUsers() {
+        TypedQuery<UtilisateurEntity> query = em.createNamedQuery("FindAllUsers", UtilisateurEntity.class);
         return query.getResultList();
-	}
-	
-	/**
-	 * Recherche d'un ingredient à partir de son id.
-	 * retourne null si aucun ingredient de la base ne possède cet id.
-	 * @param idIngredient l'id recherché
-	 * @return L'ingredient si elle existe
-	 */
-	public IngredientEntity getIngredientById(long idIngredient) {
-        return em.find(IngredientEntity.class, idIngredient);
-	}
-	
-	/**
-	 * Recherche d'un ingredient à partir de son nom.
-	 * retourne null si aucun ingredient de la base ne possède ce nom.
-	 * retourne null si il existe plusieurs ingredients de ce nom.
-	 * @param nom le nom recherché
-	 * @return L'ingredient si il existe
-	 */
-	public IngredientEntity getIngredientByName(String nom) {
-	    IngredientEntity returnValue;
-        TypedQuery<IngredientEntity> query = em.createNamedQuery("FindIngredientByName", IngredientEntity.class);
-        query.setParameter("inom", nom);
+    }
+
+    /**
+     * Recherche d'un utilisateur à partir de son id.
+     * retourne null si aucun utilisateur de la base ne possède cet id.
+     * @param idUser l'id recherché
+     * @return L'utilisateur si elle existe
+     */
+    public UtilisateurEntity getUserById(long idUser) {
+        return em.find(UtilisateurEntity.class, idUser);
+    }
+
+    /**
+     * Recherche d'un utilisateur à partir de son login.
+     * retourne null si aucun utilisateur de la base ne possède ce login.
+     * retourne null si il existe plusieurs utilisateurs de ce login.
+     * @param login login recherché
+     * @return L'utilisateur si il existe
+     */
+    public UtilisateurEntity getUserByLogin(String login) {
+        UtilisateurEntity returnValue;
+        TypedQuery<UtilisateurEntity> query = em.createNamedQuery("FindUserByLogin", UtilisateurEntity.class);
+        query.setParameter("ulogin", login);
         try {
             returnValue = query.getSingleResult();
         } catch (NonUniqueResultException | NoResultException e) {
-        	returnValue = null;
+            returnValue = null;
         }
         return returnValue;
-	}
+    }
 
     /**
-     * Ajoute un ingredients à la liste des ingrédients disponibles.
-     * Un ingrédient de même nom ne doit pas déjà exister.
+     * Ajoute un utilisateur à la liste des utilisateurs disponibles.
+     * Un utilisateur de même login ne doit pas déjà exister.
      * L'id (généré par la BDD) est renseigné automatiquement après l'ajout.
-     * @param ingredient L'ingrédient à ajouter
-     * @return L'id de l'ingrédient ajouté
-     * @throws DatabaseConstraintException Si un ingrédient de même nom eiste déjà
+     * @param utilisateurEntity L'utilisateur à ajouter
+     * @return L'id de l'utilisateur ajouté
+     * @throws DatabaseConstraintException Si un utilisateur de même login eiste déjà
      */
-	public long createIngredient(IngredientEntity ingredient) throws DatabaseConstraintException {
+    public long createUser(UtilisateurEntity utilisateurEntity) throws DatabaseConstraintException {
         try {
-            em.persist(ingredient);
+            em.persist(utilisateurEntity);
             em.flush();
         } catch (PersistenceException e) {
             throw new DatabaseConstraintException();
         }
-        return ingredient.getId();
-	}
+        return utilisateurEntity.getId();
+    }
 
     /**
-     * Supprime de la base l'ingrédient spéxifié par son identifiant.
-     * TODO On ne vérifie pas qu'aucune pizza n'utilise cet ingrédient
-     * @param id L'identifant de la pizza à supprimer.
-     * @throws Exception Si aucun ingrédient n'a cet id.
+     * Supprime de la base l'utilisateur spéxifié par son identifiant.
+     * @param login Le login de l'utilisateur à supprimer.
+     * @throws Exception Si aucun utilisateur n'a cet login.
      */
-	public void deleteIngredient(long id) throws Exception {
-     // @TODO On ne vérifie pas qu'aucune pizza n'utilise cet ingrédient
-        IngredientEntity ingredient = em.find(IngredientEntity.class,  id);
-        if (ingredient == null) throw new Exception();
-        em.remove(em.merge(ingredient));
-	}
+    public void deleteUser(String login) throws Exception {
+        UtilisateurEntity utilisateurEntity = em.find(UtilisateurEntity.class,  login);
+        if (utilisateurEntity == null) throw new Exception();
+        em.remove(em.merge(utilisateurEntity));
+    }
 
     /**
      *
-     * @param ingredient L'ingredient mis à jour
-     * @throws DatabaseConstraintException si l unicité du nom ou de l'id n'est pas respectée
+     * @param utilisateurEntity L'utilisateur mis à jour
+     * @throws DatabaseConstraintException si l unicité du login ou de l'id n'est pas respectée
      */
-	public void updateIngredient(IngredientEntity ingredient) throws DatabaseConstraintException {
-	    try {
+    public void updateUser(UtilisateurEntity utilisateurEntity) throws DatabaseConstraintException {
+        try {
             em.flush();
         } catch (PersistenceException e) {
             throw new DatabaseConstraintException();
         }
     }
 
-	// Pizza operations
-	
-	/**
-	 * Lecture de la totalités des pizzas de la base
-	 * @return La liste des pizzas
-	 */
-	public List<PizzaEntity> getAllPizzas() {
-        TypedQuery<PizzaEntity> query = em.createNamedQuery("FindAllPizzas", PizzaEntity.class);
-        return query.getResultList();
-	}
-	
-	/**
-	 * Recherche d'une pizza à partir de son id.
-	 * retourne null si aucune pizza de la base ne possède cet id.
-	 * @param idPizza l'id recherché
-	 * @return La pizza si elle existe
-	 */
-	public PizzaEntity getPizzaById(long idPizza) {
-        return em.find(PizzaEntity.class,  idPizza);
-	}
-	
-	/**
-	 * Recherche d'une pizza à partir de son nom
-	 * retourne null si aucune pizza de ce nom n'existe
-	 * retourne null si il existe plusieurs pizzas de ce nom.
-	 * @param nom le nom de la pizza recherchée.
-	 * @return La pizza recherchée si elle existe
-	 */
-    public PizzaEntity getPizzaByName(String nom) {
-        TypedQuery<PizzaEntity> query = em.createNamedQuery("FindPizzaByName", PizzaEntity.class);
-        query.setParameter("pnom", nom);
-        try {
-            return query.getSingleResult();
-        } catch (NonUniqueResultException | NoResultException e) {
-        	return null;
-        }
-	}
-
-    /**
-     * Met à jour les informations sur une pizza (y compris la liste de ses ingrédients).
-     * L'objet Pizza doit avoir été construit auparavant (soit par insertion, soi par lecture).
-     * La modification de l'ID est impossible par cette méthode.
-     * La réutilisation d'un nom déjà existant provoque une exception.
-     * @param pizza La pizza dont on veut modifier les informations.
-     * @throws PizzaNameExistsException Si le nouveau nom de pizza existait déjà sur une autre  ligne (contrainte d'unicité de la table)
-     */
-	public void updatePizza(PizzaEntity pizza) throws PizzaNameExistsException {
-	    try {
-            em.merge(pizza);
-            em.flush();
-        } catch (javax.persistence.PersistenceException e){
-            throw new PizzaNameExistsException();
-        }
-	}
-	
-	public long createPizza(PizzaEntity pizza) {
-        em.persist(pizza);
-        em.flush();
-        return pizza.getId();
-	}
-
-	public void deletePizza(long id) throws Exception {
-        PizzaEntity pizza = em.find(PizzaEntity.class,  id);
-        if (pizza == null) throw new Exception();
-        em.remove(em.merge(pizza));
-	}
 }
