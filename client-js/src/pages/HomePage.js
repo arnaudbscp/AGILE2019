@@ -12,7 +12,7 @@ export default class HomePage extends Page {
 		this.attribute = {name:'class', value:'home'};
 		this.data = data;
 	}
-*/
+
 	set data(value:Array<{nom:string, base:string, prix_petite:number, prix_grande:number}>):void {
 		this.#data = value;
 		this.children = this.#data.map( pizza => new PizzaThumbnail(pizza) )

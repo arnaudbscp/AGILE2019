@@ -25,9 +25,9 @@ public class MyResourceTest extends JerseyTest {
     @Test
     public void testInitH2() {
         DataAccess dataAccess = DataAccess.begin();
-        PizzaEntity pizza = dataAccess.getPizzaById(1);
-        assertNotNull(pizza);
-        assertEquals("oranaise", pizza.getNom());
+        UtilisateurEntity utilisateur = dataAccess.getUserById(1);
+        assertNotNull(utilisateur);
+        assertEquals("axel", utilisateur.getLogin());
         dataAccess.closeConnection(false);
     }
 }
