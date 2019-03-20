@@ -114,8 +114,10 @@ public class DataAccess {
      */
     public long createUser(UtilisateurEntity utilisateurEntity) throws DatabaseConstraintException {
         try {
+            System.out.println(utilisateurEntity.toString());
             em.persist(utilisateurEntity);
             em.flush();
+            System.out.println(utilisateurEntity.toString());
         } catch (PersistenceException e) {
             throw new DatabaseConstraintException();
         }

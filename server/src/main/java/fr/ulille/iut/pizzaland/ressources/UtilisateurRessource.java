@@ -39,20 +39,25 @@ public class UtilisateurRessource {
     public Response create(UtilisateurEntity utilisateurEntity) {
         DataAccess dataAccess = DataAccess.begin();
         if (utilisateurEntity.getLogin() == null) {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("login not specified").build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("login not specified\n").build();
         }
         else if(utilisateurEntity.getPassword() == null){
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("password not specified").build();
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("password not specified\n").build();
         }
+        else if(utilisateurEntity.getRole() == null) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("role not specified\n").build();
+        }
+
         try {
             long id = dataAccess.createUser(utilisateurEntity);
+            System.out.println("ID USER : " + id);
             URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + id).build();
             dataAccess.closeConnection(true);
             return Response.created(instanceURI).status(201).entity(utilisateurEntity).location(instanceURI).build(); //  .created(instanceURI).build();
         }
         catch ( Exception ex ) {
             dataAccess.closeConnection(false);
-            return Response.status(Response.Status.CONFLICT).entity("Duplicated login").build();
+            return Response.status(Response.Status.CONFLICT).entity("Duplicated login\n").build();
         }
     }
 
