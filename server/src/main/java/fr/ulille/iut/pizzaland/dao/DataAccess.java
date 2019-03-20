@@ -92,10 +92,10 @@ public class DataAccess {
      * @param login login recherché
      * @return L'utilisateur si il existe
      */
-    public UtilisateurEntity getUserByLogin(String login) {
+    public UtilisateurEntity getUserByLoginPassword(String login, String password) {
         UtilisateurEntity returnValue;
-        TypedQuery<UtilisateurEntity> query = em.createNamedQuery("FindUserByLogin", UtilisateurEntity.class);
-        query.setParameter("ulogin", login);
+        TypedQuery<UtilisateurEntity> query = em.createNamedQuery("FindUserByLoginPassword", UtilisateurEntity.class);
+        query.setParameter("ulogin", login).setParameter("upassword", password);
         try {
             returnValue = query.getSingleResult();
         } catch (NonUniqueResultException | NoResultException e) {
