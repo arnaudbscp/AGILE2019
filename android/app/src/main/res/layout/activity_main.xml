@@ -63,7 +63,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:onClick="doGetIngredientsAsString"
-        android:text="@string/lblGetIngredients"
+        android:text="Dire bonjour"
         app:layout_constraintBottom_toTopOf="@+id/btGetPizzas"
         app:layout_constraintEnd_toStartOf="@+id/cbGetIngredient"
         app:layout_constraintStart_toStartOf="parent"
