@@ -70,7 +70,7 @@ public class DataAccess {
      * @return La liste des ingredients
      */
 	public List<IngredientEntity> getAllIngredients() {
-        TypedQuery<IngredientEntity> query = em.createNamedQuery("FindAllIngredients", IngredientEntity.class);
+        //TypedQuery<IngredientEntity> query = em.createNamedQuery("FindAllIngredients", IngredientEntity.class);
         return query.getResultList();
 	}
 	
