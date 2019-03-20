@@ -43,7 +43,7 @@ public class EvenementEntity extends EvenementDto {
     }
 
     @Basic
-    @Column(name = "nom", nullable = false, length = -1, unique = true)
+    @Column(name = "nom", nullable = false, length = -1)
     public String getNom() {
         return nom;
     }
@@ -54,17 +54,17 @@ public class EvenementEntity extends EvenementDto {
 
 
     @Basic
-    @Column(name = "date", nullable = false, length = -1, unique = true)
+    @Column(name = "date", nullable = false, length = -1)
     public String getDate() {
         return date;
     }
 
-    public void setDate(String password) {
+    public void setDate(String date) {
         this.date = date;
     }
 
     @Basic
-    @Column(name = "heure", nullable = false, length = -1, unique = true)
+    @Column(name = "heure", nullable = false, length = -1)
     public String getHeure(){ return heure;}
 
     public void setHeure(String heure){this.heure = heure;}

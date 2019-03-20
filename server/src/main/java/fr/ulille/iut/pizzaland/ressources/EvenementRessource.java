@@ -37,6 +37,7 @@ public class EvenementRessource {
     @POST
     public Response create(EvenementEntity evenementEntity) {
         DataAccess dataAccess = DataAccess.begin();
+        System.out.println(evenementEntity.toString());
         if (evenementEntity.getNom() == null) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity("name not specified\n").build();
         }
@@ -46,7 +47,6 @@ public class EvenementRessource {
         else if(evenementEntity.getHeure() == null){
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity("heure not specified\n").build();
         }
-
 
         try {
             long id = dataAccess.createEvent(evenementEntity);
