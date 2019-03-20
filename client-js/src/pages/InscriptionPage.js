@@ -1,6 +1,7 @@
 // @flow
 import Page from './Page.js';
 import $ from 'jquery';
+import { StringDecoder } from 'string_decoder';
 
 export default class InscriptionPage extends Page {
 	constructor(){
@@ -14,11 +15,11 @@ export default class InscriptionPage extends Page {
         <div class="form-row">
         <div class="col-md-4 mb-3">
           <label for="validationDefault01">First name</label>
-          <input type="text" class="form-control" id="login" placeholder="First name" value="Mark" required>
+          <input type="text" class="form-control" id="login" name="login" placeholder="First name" value="Mark" required>
         </div>
         <div class="col-md-4 mb-3">
           <label for="validationDefault02">Last name</label>
-          <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" >
+          <input type="text" class="form-control" id="validationDefault02" name="id" placeholder="Last name" value="Otto" >
         </div>
         <div class="col-md-4 mb-3">
           <label for="validationDefaultUsername">Username</label>
@@ -26,14 +27,14 @@ export default class InscriptionPage extends Page {
             <div class="input-group-prepend">
               <span class="input-group-text" id="inputGroupPrepend2">@</span>
             </div>
-            <input type="text" class="form-control" id="email" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+            <input type="text" class="form-control" id="email" name="email" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
           </div>
         </div>
       </div>
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="validationDefault03">Mot de passe</label>
-          <input type="text" class="form-control" id="mdp" placeholder="Mot de passe" required>
+          <input type="text" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
         </div>
         <div class="col-md-3 mb-3">
           <label for="validationDefault04">State</label>
@@ -64,8 +65,8 @@ export default class InscriptionPage extends Page {
 		event.preventDefault();
 		const fieldNames:Array<string> = [
 			'login',
-			'email',
-			'mdp',
+			'password',
+			'email'
 		];
 		// on récupère la valeur saisie dans chaque champ
 		const values:any = {};
@@ -86,7 +87,7 @@ export default class InscriptionPage extends Page {
 			// si il n'y a pas d'erreur on envoie les données
 			const utilisateur = {
 				login: values.login,
-				mdp: values.mdp,
+				password: values.password,
 				email: values.email
          };
             //modifier
@@ -102,7 +103,7 @@ export default class InscriptionPage extends Page {
 				return response.json();
 			})
 			.then ( newUser => {
-                alert(`Utilisateur "${newUser.nom}" enregistrée avec succès ! (id ${newUser.id})`);
+                alert(`Utilisateur "${newUser.login}" enregistrée avec succès ! (id ${newUser.id})`);
 				// puis on vide le formulaire
 				const form:?HTMLElement = document.querySelector('form.InscriptionPage');
 				if (form && form instanceof HTMLFormElement) {
