@@ -51,7 +51,6 @@ public class UtilisateurRessource {
 
         try {
             long id = dataAccess.createUser(utilisateurEntity);
-            System.out.println("ID USER : " + id);
             URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + id).build();
             dataAccess.closeConnection(true);
             return Response.created(instanceURI).status(201).entity(utilisateurEntity).location(instanceURI).build(); //  .created(instanceURI).build();
@@ -66,15 +65,15 @@ public class UtilisateurRessource {
     @GET
     @Path("/{login}/{password}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getNom(@PathParam("login") String login, @PathParam("password") String password) {
-        DataAccess dataAccess =DataAccess.begin();
+    public Response getLoginPassword(@PathParam("login") String login, @PathParam("password") String password) {
+        DataAccess dataAccess = DataAccess.begin();
         UtilisateurEntity utilisateurEntity = dataAccess.getUserByLoginPassword(login, password);
         if ( utilisateurEntity != null ) {
             dataAccess.closeConnection(true);
             return Response.ok(utilisateurEntity).build();
         } else {
             dataAccess.closeConnection(false);
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("User not found\n").build();
         }
     }
 
@@ -86,18 +85,19 @@ public class UtilisateurRessource {
         DataAccess dataAccess = DataAccess.begin();
         UtilisateurEntity utilisateurBDD = dataAccess.getUserByLoginPassword(login, password);
         if (utilisateurBDD == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("User not found\n").build();
         } else {
             try {
                 utilisateurBDD.setLogin(utilisateurEntity.getLogin());
                 utilisateurBDD.setPassword(utilisateurEntity.getPassword());
+                utilisateurBDD.setEmail(utilisateurEntity.getEmail());
                 utilisateurBDD.setRole(utilisateurEntity.getRole());
                 dataAccess.updateUser(utilisateurBDD);
                 dataAccess.closeConnection(true);
                 return Response.ok(utilisateurBDD).build(); //  .created(instanceURI).build();
             } catch (Exception ex) {
                 dataAccess.closeConnection(false);
-                return Response.status(Response.Status.CONFLICT).entity("Duplicated login").build();
+                return Response.status(Response.Status.CONFLICT).entity("Duplicated login\n").build();
             }
         }
     }
@@ -113,7 +113,7 @@ public class UtilisateurRessource {
             return Response.status(Response.Status.NO_CONTENT).build();
         } catch (Exception e) {
             dataAccess.closeConnection(false);
-            return Response.status(Response.Status.NOT_FOUND).entity("User not found").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("User not found\n").build();
         }
     }
 }

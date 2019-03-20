@@ -88,6 +88,6 @@ public class UtilisateurEntity extends UtilisateurDto {
 
     @Override
     public String toString() {
-        return "Utilisateur [id=" + id + ", login=" + login + " , password=" + password + " , role=" + role + "]";
+        return "Utilisateur [id=" + id + ", login=" + login + " , password=" + password + ", email=" + email + " , role=" + role + "]";
     }
 }

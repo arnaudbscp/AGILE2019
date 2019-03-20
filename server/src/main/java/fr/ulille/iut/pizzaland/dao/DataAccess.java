@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import javax.persistence.*;
 
@@ -75,21 +76,13 @@ public class DataAccess {
         return query.getResultList();
     }
 
-    /**
-     * Recherche d'un utilisateur à partir de son id.
-     * retourne null si aucun utilisateur de la base ne possède cet id.
-     * @param idUser l'id recherché
-     * @return L'utilisateur si elle existe
-     */
-    public UtilisateurEntity getUserById(long idUser) {
-        return em.find(UtilisateurEntity.class, idUser);
-    }
 
     /**
      * Recherche d'un utilisateur à partir de son login.
      * retourne null si aucun utilisateur de la base ne possède ce login.
      * retourne null si il existe plusieurs utilisateurs de ce login.
      * @param login login recherché
+     * @param  password password de l'utilisateur
      * @return L'utilisateur si il existe
      */
     public UtilisateurEntity getUserByLoginPassword(String login, String password) {
@@ -125,7 +118,7 @@ public class DataAccess {
     }
 
     /**
-     * Supprime de la base l'utilisateur spéxifié par son identifiant.
+     * Supprime de la base l'utilisateur spéxifié par son login.
      * @param login Le login de l'utilisateur à supprimer.
      * @throws Exception Si aucun utilisateur n'a cet login.
      */
@@ -141,6 +134,77 @@ public class DataAccess {
      * @throws DatabaseConstraintException si l unicité du login ou de l'id n'est pas respectée
      */
     public void updateUser(UtilisateurEntity utilisateurEntity) throws DatabaseConstraintException {
+        try {
+            em.flush();
+        } catch (PersistenceException e) {
+            throw new DatabaseConstraintException();
+        }
+    }
+
+    // Evenement operations
+
+    /**
+     * Charge la liste de tous les evements de la base
+     * @return La liste des evenements
+     */
+    public List<EvenementEntity> getAllEvents() {
+        TypedQuery<EvenementEntity> query = em.createNamedQuery("FindAllEvents", EvenementEntity.class);
+        return query.getResultList();
+    }
+
+
+    /**
+     * Recherche d'evenements à partir d'une nom.
+     * retourne null si aucun evenement de la base ne possède cette date.
+     * @param date date recherché
+     * @return Les evenements si ils existent
+     */
+    public List<EvenementEntity> getEventByDate(String date) {
+        TypedQuery<EvenementEntity> query = em.createNamedQuery("FindEventByDate", EvenementEntity.class);
+        query.setParameter("edate", date);
+        try {
+            query.getResultList();
+        } catch (NonUniqueResultException | NoResultException e) {
+            return null;
+        }
+        return null;
+    }
+
+    /**
+     * Ajoute un evenement à la liste des evenement disponibles.
+     * L'id (généré par la BDD) est renseigné automatiquement après l'ajout.
+     * @param evenementEntity L'evenement à ajouter
+     * @return L'id de l'evenement ajouté
+     */
+    public long createEvent(EvenementEntity evenementEntity)  {
+        em.persist(evenementEntity);
+        em.flush();
+        return evenementEntity.getId();
+    }
+
+    /**
+     * Supprime de la base l'evenement spéxifié par son nom et de sa date.
+     * @param nom Le nom de l'evenement à supprimer.
+     * @param date de l'evement à supprimer
+     * @throws Exception Si aucun evenement n'a ce nom.
+     */
+    public void deleteEvent(String nom, String date) throws Exception {
+        TypedQuery<EvenementEntity> query = em.createNamedQuery("FindEventByName", EvenementEntity.class);
+        query.setParameter("enom", nom);
+        if (query == null) throw new Exception();
+        for (EvenementEntity evenementEntity: query.getResultList()) {
+            if(evenementEntity.getDate().equals(date)){
+                em.remove(em.merge(evenementEntity));
+            }
+        }
+    }
+
+    /**
+     *
+     * @param evenementEntity L'evenement mis à jour
+     * @throws DatabaseConstraintException si l unicité de l'id n'est pas respectée
+     */
+    public void updateEvent(EvenementEntity evenementEntity) throws DatabaseConstraintException {
         try {
             em.flush();
         } catch (PersistenceException e) {

@@ -8,9 +8,8 @@ public class UtilisateurDto {
     protected  long id;
     protected  String login;
     protected  String password;
-    protected  String role;
     protected String email;
-
+    protected  String role;
 
     public static Logger getLogger() {
         return logger;
@@ -57,6 +56,6 @@ public class UtilisateurDto {
     }
 
     public String toString() {
-        return "Login: " + this.login + " Password: " + this.password + " Role: " + this.role;
+        return "Login: " + this.login + " Password: " + this.password + " Email: " + email +  " Role: " + this.role;
     }
 }

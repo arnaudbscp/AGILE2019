@@ -4,6 +4,7 @@
     <persistence-unit name="PizzalandPersistenceUnit">
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <class>fr.ulille.iut.pizzaland.dao.UtilisateurEntity</class>
+        <class>fr.ulille.iut.pizzaland.dao.EvenementEntity</class>
         <properties>
             <!-- Configuration postgresql -->
  	       	<!--<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/pizzaland"/> -->
