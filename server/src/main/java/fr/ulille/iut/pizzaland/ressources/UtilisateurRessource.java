@@ -44,9 +44,7 @@ public class UtilisateurRessource {
         else if(utilisateurEntity.getPassword() == null){
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity("password not specified\n").build();
         }
-        else if(utilisateurEntity.getRole() == null) {
-            return Response.status(Response.Status.NOT_ACCEPTABLE).entity("role not specified\n").build();
-        }
+        utilisateurEntity.setRole("user");
 
         try {
             long id = dataAccess.createUser(utilisateurEntity);
