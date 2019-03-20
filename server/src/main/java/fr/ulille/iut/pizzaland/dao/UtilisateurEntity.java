@@ -62,6 +62,12 @@ public class UtilisateurEntity extends UtilisateurDto {
     }
 
     @Basic
+    @Column(name = "email", nullable = false, length = -1, unique = true)
+    public String getEmail(){ return email;}
+
+    public void setEmail(String email){this.email = email;}
+
+    @Basic
     @Column(name = "role", nullable = false, length = -1, unique = true)
     public String getRole() {
         return role;
