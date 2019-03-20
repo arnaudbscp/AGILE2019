@@ -88,16 +88,14 @@ public class UtilisateurRessource {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found\n").build();
         } else {
             try {
-                utilisateurBDD.setLogin(utilisateurEntity.getLogin());
-                utilisateurBDD.setPassword(utilisateurEntity.getPassword());
                 utilisateurBDD.setEmail(utilisateurEntity.getEmail());
-                utilisateurBDD.setRole(utilisateurEntity.getRole());
+                utilisateurBDD.setPassword(utilisateurEntity.getPassword());
                 dataAccess.updateUser(utilisateurBDD);
                 dataAccess.closeConnection(true);
                 return Response.ok(utilisateurBDD).build(); //  .created(instanceURI).build();
             } catch (Exception ex) {
                 dataAccess.closeConnection(false);
-                return Response.status(Response.Status.CONFLICT).entity("Duplicated login\n").build();
+                return Response.status(Response.Status.CONFLICT).entity("Duplicated login \n").build();
             }
         }
     }
