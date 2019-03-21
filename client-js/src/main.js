@@ -9,7 +9,7 @@ import Menu from './components/Menu.js';
 
 // configuration du PageRenderer
 PageRenderer.titleElement = document.querySelector('.pageTitle');
-PageRenderer.contentElement = document.querySelector('.pizzasContainer');
+PageRenderer.contentElement = document.querySelector('.newsContainer');
 
 // déclaration des différentes page de l'app
 const homePage:HomePage = new HomePage([]);
