@@ -23,3 +23,11 @@
 .col-lg-12{
 	margin-top: 280px;
 }
+
+/*.navbar-inverse.navbar-nav > li > a {
+    color: green;
+}*/
+
+.navbar-nav > li > a {
+    color: green;
+}
