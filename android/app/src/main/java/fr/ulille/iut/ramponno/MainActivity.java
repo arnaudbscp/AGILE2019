@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,7 +21,10 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     public static final String LOG_TAG = "APPLI";
     private RequestQueue queue;
     BaseAccess base = new BaseAccess(this);
+    TextView mailField;
+    TextView passField;
 
 
     public static final String SERVER_KEY = "SERVEUR";
@@ -37,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
         base.queue = Volley.newRequestQueue(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mailField = (TextView) findViewById(R.id.mailField);
+        passField = (TextView) findViewById(R.id.passField);
 
         queue = Volley.newRequestQueue(MainActivity.this);
 
@@ -57,7 +67,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void connect(View view){
-        connect();
+        Log.d("connect","Lauching connect");
+        connectTask();
     }
     private void init(){
     EditText mail = (EditText)findViewById(R.id.mailField);
@@ -80,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void connect() {
+    public void connectTask() {
         Log.d(base.LOG_TAG, "Send started");
         String uri = "http://10.0.2.2:8080/api/v1/users";
         Log.d(base.LOG_TAG, "Uri: " + uri);
@@ -92,8 +103,22 @@ public class MainActivity extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        Intent intent = new Intent(MainActivity.this, Agenda.class);
-                        startActivity(intent);
+                        Log.d("coucou","coucou");
+                        String retour = verifLogs(response);
+                        Log.d("retour",retour);
+                        Toast toast = Toast.makeText(getApplicationContext(), retour, Toast.LENGTH_SHORT);
+                        toast.show();
+                        if (retour.equals("noMail")){
+
+                        }else if (retour.equals("noPass")){
+
+                        }else{
+                            Intent intent = new Intent(MainActivity.this, Agenda.class);
+                            intent.putExtra("mail",retour);
+                            startActivity(intent);
+                        }
+
+
                     }
                 },
                 new Response.ErrorListener() {
@@ -106,5 +131,33 @@ public class MainActivity extends AppCompatActivity {
         arrayRequest.setTag(base.VOLLEY_TAG);
         base.queue.add(arrayRequest);
         Log.d(base.LOG_TAG, "Send done");
+    }
+
+    public String verifLogs(JSONArray response){
+        int i=0;
+        String enteredMail = mailField.getText().toString();
+        String enteredPass = passField.getText().toString();
+        boolean mailFound = false;
+        while ( i < response.length()) {
+            try {
+                String dataString = response.getString(i);
+                dataString = dataString.replaceAll("\"", "").replaceAll("\\}", "").replaceAll("\\{","");
+                String[] data = dataString.split(",");
+                String mailVerif = (data[0].substring(data[0].indexOf(":")+1));
+                String passVerif = (data[3].substring(data[3].indexOf(":")+1));
+                if (mailVerif.equals(enteredMail)){
+                    mailFound = true;
+                    if (passVerif.equals(enteredPass)){
+                        return enteredMail;
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            i++;
+
+        }
+        if (mailFound)return "noPass";
+        return  "noMail";
     }
 }

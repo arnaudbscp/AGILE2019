@@ -6,6 +6,54 @@
     android:layout_height="match_parent"
     tools:context="fr.ulille.iut.ramponno.Signin">
 
+    <Button
+        android:id="@+id/CancelButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:onClick="closeSigninActivity"
+        android:text="Annuler"
+        app:layout_constraintEnd_toStartOf="@+id/validSigninButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rePasswd" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Répéter mot de passe :"
+        app:layout_constraintStart_toStartOf="@+id/rePasswd"
+        app:layout_constraintTop_toBottomOf="@+id/passwd" />
+
+    <EditText
+        android:id="@+id/rePasswd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Répéter mot de passe"
+        android:inputType="textPassword"
+        app:layout_constraintStart_toStartOf="@+id/passwd"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:text="Prénom :"
+        app:layout_constraintStart_toStartOf="@+id/prename"
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
@@ -16,6 +64,26 @@
         android:text="Nom :"
         app:layout_constraintStart_toStartOf="@+id/name"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Mot de passe :"
+        app:layout_constraintStart_toStartOf="@+id/passwd"
+        app:layout_constraintTop_toBottomOf="@+id/mailField" />
+
+    <EditText
+        android:id="@+id/prename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Prénom"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toStartOf="@+id/name"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <EditText
         android:id="@+id/name"
@@ -33,25 +101,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <TextView
-        android:id="@+id/textView8"
+    <EditText
+        android:id="@+id/mailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Mot de passe :"
-        app:layout_constraintStart_toStartOf="@+id/passwd"
-        app:layout_constraintTop_toBottomOf="@+id/mailField" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Répéter mot de passe :"
-        app:layout_constraintStart_toStartOf="@+id/rePasswd"
-        app:layout_constraintTop_toBottomOf="@+id/passwd" />
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="mail@exemple.com"
+        android:inputType="textEmailAddress"
+        app:layout_constraintStart_toStartOf="@+id/prename"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <EditText
         android:id="@+id/passwd"
@@ -63,54 +122,6 @@
         android:inputType="textPassword"
         app:layout_constraintStart_toStartOf="@+id/mailField"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
-
-    <EditText
-        android:id="@+id/rePasswd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Répéter mot de passe"
-        android:inputType="textPassword"
-        app:layout_constraintStart_toStartOf="@+id/passwd"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
-
-    <EditText
-        android:id="@+id/prename"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Prénom"
-        android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/name"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
-        android:text="Prénom :"
-        app:layout_constraintStart_toStartOf="@+id/prename"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
-
-    <Button
-        android:id="@+id/CancelButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:onClick="closeSigninActivity"
-        android:text="Annuler"
-        app:layout_constraintEnd_toStartOf="@+id/validSigninButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rePasswd" />
 
     <Button
         android:id="@+id/validSigninButton"
@@ -126,17 +137,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/CancelButton"
         app:layout_constraintTop_toTopOf="@+id/CancelButton" />
-
-    <EditText
-        android:id="@+id/mailField"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="mail@exemple.com"
-        android:inputType="textEmailAddress"
-        app:layout_constraintStart_toStartOf="@+id/prename"
-        app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <TextView
         android:id="@+id/textView11"

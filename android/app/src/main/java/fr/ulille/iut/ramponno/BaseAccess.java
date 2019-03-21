@@ -68,7 +68,6 @@ public class BaseAccess {
 
             } catch (UnsupportedEncodingException e) {
                 Log.e(LOG_TAG, e+"");
-                e.printStackTrace();
             }
         }
     }
