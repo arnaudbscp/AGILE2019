@@ -1,54 +1,72 @@
 // @flow
 import Component from '../components/Component.js';
-//import PizzaThumbnail from '../components/PizzaThumbnail.js';
+import Evenement from '../components/Evenement.js';
 import Page from './Page.js';
 import $ from 'jquery';
 
 export default class HomePage extends Page {
-	//#data;
+	#data;
 
-	render():string {
-		return `
-		<div <br style="margin-top:90px;" /> </div>	
-
-		<select name="events" >
-		<option value="1">Premier Cours</option>
-		<option value="2">Deuxième Cours</option>
-		<option value="3">Troisième Cours</option>
-		<option value="4">Quatrième Cours</option>
-		</select> 
-	`;
-	}
-/*	constructor( data:Array<{nom:string, base:string, prix_petite:number, prix_grande:number}> ){
-		super( 'La carte' );
-		this.attribute = {name:'class', value:'home'};
+	constructor( data:Array<{nom:string, heure:string, id:number, date:string}> ){
+		super( 'Les evenements à venir' );
+		this.attribute = {name:'class', value:'newsContainer'};
 		this.data = data;
 	}
 
-	set data(value:Array<{nom:string, base:string, prix_petite:number, prix_grande:number}>):void {
+	set data(value:Array<{nom:string, heure:string, id:number, date:string}>):void {
 		this.#data = value;
-		this.children = this.#data.map( pizza => new PizzaThumbnail(pizza) )
+		this.children = this.#data.map(evenements => new Evenement(evenements));
 	}
 
-	mount(container:HTMLElement):void {
-		container.classList.add('is-loading');
-		fetch('http://localhost:8080/api/v1/pizzas')
-			.then( (response:Response) => response.json() )
-			.then( (data:any) => {
+	mount(events:HTMLElement):void {
+		fetch( 'http://localhost:8080/api/v1/events', {
+			method:'GET',
+			headers: { 'Content-Type': 'application/json' },
+		})
+		.then( (response:Response) => response.json() )
+		.then( (data:any) => {
 				this.data = data;
-				container.innerHTML = this.render();
-				container.classList.remove('is-loading');
-				//$(container).find('a').click( this.onThumbnailClick )
-			});
-	}
+				events.innerHTML = this.render();
+				// $FlowFixMe
+				this.submit = this.submit.bind(this);
+				$('form.Evenement').submit( this.submit );
+				$('input').attr('value','Réserver');
+		});
 
-	onThumbnailClick(event:Event):void {
-		event.preventDefault();
-		window.open(
-			$(event.currentTarget).attr('href'),
-			'popup',
-			'width=350,height=200,menubar=0,toolbar=0,location=0,personalbar=0,status=0'
-		);
 	}
-*/
+	
+	// Lien personnalisé selon l'evenement : on recupère le date/nom pour réserver
+	submit(event:Event):void {
+		let nbElements = $( 'form.Evenement' ).length;
+		console.log(nbElements);
+		let terminaison = new Array();
+		for(let i = 1; i <= nbElements; i++) {
+			terminaison[i-1] = $(event.currentTarget).parent().children(`:nth-child(${i})`).children(':first-child').attr('class');
+		}
+		let c = 0;
+		c = $(event.currentTarget).index();
+		event.preventDefault();
+            // à modifier
+			fetch( `http://localhost:8080/api/v1/${terminaison[c]}`, {
+					method:'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(utilisateur)
+				})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error( `${response.status} : ${response.statusText}` );
+				}
+				return response.json();
+			})
+			.then ( newUser => {
+                alert(`Utilisateur "${newUser.login}" enregistrée avec succès ! (id ${newUser.id})`);
+				// puis on vide le formulaire
+				const form:?HTMLElement = document.querySelector('form.InscriptionPage');
+				if (form && form instanceof HTMLFormElement) {
+					form.reset();
+				}
+			})
+			.catch( error => alert(`Enregistrement impossible : ${error.message}`) );
+
+	}
 }
