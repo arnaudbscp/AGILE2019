@@ -40,13 +40,11 @@ public class EvenementRessource {
     @POST
     public Response create(EvenementDto evenementDto) {
         DataAccess dataAccess = DataAccess.begin();
-        EvenementEntity ee = new EvenementEntity(evenementDto);
+        EvenementEntity evenementEntity = EvenementEntity.convertFromEvenementDto(evenementDto);
+
         System.out.println(evenementDto.toString());
-        Set<UtilisateurEntity> utilisateurs = new HashSet<>();
-        for(Long ing: evenementDto.getInscrits()){
-            utilisateurs.add(dataAccess.getUserById(ing));
-        }
-        ee.setReservationsSet(utilisateurs);
+        System.out.println(evenementEntity.toString());
+
         if (evenementDto.getNom() == null) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity("name not specified\n").build();
         }
@@ -57,16 +55,17 @@ public class EvenementRessource {
             return Response.status(Response.Status.NOT_ACCEPTABLE).entity("heure not specified\n").build();
         }
 
-        try {
-            long id = dataAccess.createEvent(ee);
+        //try {
+            long id = dataAccess.createEvent(evenementEntity);
             URI instanceURI = uriInfo.getAbsolutePathBuilder().path("" + id).build();
             dataAccess.closeConnection(true);
             return Response.created(instanceURI).status(201).entity(evenementDto).location(instanceURI).build(); //  .created(instanceURI).build();
-        }
-        catch ( Exception ex ) {
-            dataAccess.closeConnection(false);
-            return Response.status(Response.Status.CONFLICT).entity("Duplicated name\n").build();
-        }
+        //}
+        //catch ( Exception ex ) {
+            //dataAccess.closeConnection(false);
+            //ex.printStackTrace();
+            //return Response.status(Response.Status.CONFLICT).entity("Duplicated name\n").build();
+        //}
     }
 
     /* GET EVENTS WITH DATE */

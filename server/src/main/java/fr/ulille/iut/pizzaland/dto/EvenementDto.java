@@ -11,7 +11,7 @@ public class EvenementDto{
     protected String nom;
     protected String date;
     protected String heure;
-    protected int place;
+    protected long place;
     protected List<Long> inscrits;
 
     public static Logger getLogger() {
@@ -50,9 +50,9 @@ public class EvenementDto{
         this.heure = heure;
     }
 
-    public int getPlace() { return place; }
+    public long getPlace() { return place; }
 
-    public void setPlace(int place) { this.place = place; }
+    public void setPlace(long place) { this.place = place; }
 
     public String toString() {
         return "Nom " + this.nom + " Date: " + this.date + " Heure: " + this.heure + " Places disponibles: " + this.place;

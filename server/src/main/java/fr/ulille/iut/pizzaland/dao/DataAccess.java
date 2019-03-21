@@ -213,6 +213,7 @@ public class DataAccess {
      * @return L'id de l'evenement ajouté
      */
     public long createEvent(EvenementEntity evenementEntity)  {
+        System.out.println("IN DATA ACCES \n");
         em.persist(evenementEntity);
         em.flush();
         return evenementEntity.getId();
