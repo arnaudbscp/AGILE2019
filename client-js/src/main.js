@@ -6,6 +6,7 @@ import Connexion from './pages/Connexion.js';
 import PageRenderer from './PageRenderer.js';
 import $ from 'jquery';
 import Menu from './components/Menu.js';
+import Administration from './pages/Admin.js';
 
 // configuration du PageRenderer
 PageRenderer.titleElement = document.querySelector('.pageTitle');
@@ -16,6 +17,7 @@ const homePage:HomePage = new HomePage([]);
 const addPizzaPage:AddPizzaPage = new AddPizzaPage();
 const inscriptionPage:Inscription = new Inscription();
 const connexion:Connexion = new Connexion();
+const administrationPage:Administration = new Administration();
 
 // configuration des liens du menu
 const menu:Menu = new Menu();
@@ -24,6 +26,7 @@ const homeLink = $('.homeLink');
 const addPizzaLink = $('.addPizzaLink');
 const inscription = $('.inscriptionLink');
 const connexionLink = $('.connexionLink');
+const adminLink = $('.adminLink')
 
 logoLink.click( (event:Event) => {
 	event.preventDefault();
@@ -41,7 +44,10 @@ inscription.click( (event:Event) => {
 	event.preventDefault();
 	renderInscription();
 })
-
+adminLink.click( (event:Event) => {
+	event.preventDefault();
+	renderAdministration();
+})
 connexionLink.click( (event:Event) => {
 	event.preventDefault();
 	renderConnexion();
@@ -58,6 +64,10 @@ function renderAddPizza():void{
 function renderInscription():void{
 	menu.setSelectedLink(inscription);
 	PageRenderer.renderPage(inscriptionPage);
+}
+function renderAdministration():void{
+	menu.setSelectedLink(adminLink);
+	PageRenderer.renderPage(administrationPage);
 }
 function renderConnexion():void{
 	menu.setSelectedLink(connexionLink);

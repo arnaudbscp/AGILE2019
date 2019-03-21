@@ -55,26 +55,32 @@ export default class HomePage extends Page {
       			ccc = ccc.substring(1);
     		}
     		if (ccc.indexOf(name) == 0) {
-      		cc = ccc.substring(name.length, c.length);
+      			cc = ccc.substring(name.length, ccc.length);
     		}
   		}
 		console.log(document.cookie);
-		if(document.cookie != "") {
-            // à modifier
-			fetch( `http://localhost:8080/api/v1/events/${terminaison[c]}/${cc}`, {
-					method:'PUT',
-					headers: { 'Content-Type': 'application/json' },
+		if(cc != "") {
+			if(cc == 'admin') {
+				// traitement post direction serveur creation reservation
+			}else {
+				// à modifier
+				fetch( `http://localhost:8080/api/v1/events/${terminaison[c]}/${cc}`, {
+						method:'PUT',
+						headers: { 'Content-Type': 'application/json' },
+					})
+				.then(response => {
+					if (!response.ok) {
+						throw new Error( `${response.status} : ${response.statusText}` );
+					}
+					return response.json();
 				})
-			.then(response => {
-				if (!response.ok) {
-					throw new Error( `${response.status} : ${response.statusText}` );
-				}
-				return response.json();
-			})
-			.then ( newReserv => {
-                alert(`Reservation faite !`);
-			})
-			//.catch( error => alert(`Enregistrement impossible : ${error.message}`) );
+				.then ( newReserv => {
+					alert(`Reservation faite !`);
+				})
+				//.catch( error => alert(`Enregistrement impossible : ${error.message}`) );
+			}
+		}else {
+			alert('Veuillez vous connecter !');
 		}
 	}
 }

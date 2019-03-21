@@ -4,6 +4,7 @@ import $ from 'jquery';
 export default class Connexion extends Page {
 	constructor(){
 		super();
+		super('Se connecter');
 		// $FlowFixMe
 		this.submit = this.submit.bind(this);
 	}
@@ -70,17 +71,32 @@ export default class Connexion extends Page {
 				let pseudo = "";
 				for(let i = 0; i < newUtilisateur.length; i++) {
 					if(newUtilisateur[i].email == utilisateur.login) {
-						p = p +1;
+						p = p + 1;
 						pseudo = newUtilisateur[i].login;
+						if(newUtilisateur[i].role == "admin") {
+							p = p + 1;
+						}
 					}
 					if(newUtilisateur[i].password == utilisateur.password) {
-						p = p +1;
+						p = p + 1;
 					}
+
 				}
 				console.log(p);
 				if(p == 2) {
+	    			var d = new Date;
+	    			d.setTime(d.getTime() + 24*60*60*1000*-1);
+	    			document.cookie = "username" + "=" + "" + ";path=/;expires=" + d.toGMTString();
 					alert(`Utilisateur "${utilisateur.login}" s'est connecté avec succès ! Réservation possible.`);		
-					document.cookie = `username=${pseudo};expires=Thu, 21 Mar 2019 16:00:00 UTC`;
+					document.cookie = `username=${pseudo};`;
+					p= 0;
+				}else if(p == 3) {
+					var d = new Date;
+	    			d.setTime(d.getTime() + 24*60*60*1000*-1);
+	    			document.cookie = "username" + "=" + "" + ";path=/;expires=" + d.toGMTString();
+					alert(`L'admin "${utilisateur.login}" s'est connecté avec succès`);		
+					document.cookie = `username=admin;`;
+					p = 0;
 				}else {
 					alert(`Mauvaise connexion`);
 				}
