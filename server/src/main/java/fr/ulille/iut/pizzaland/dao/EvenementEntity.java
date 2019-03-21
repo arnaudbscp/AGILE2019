@@ -26,7 +26,6 @@ public class EvenementEntity extends EvenementDto {
     private static ModelMapper modelMapper = new ModelMapper();
 
     private List<UtilisateurEntity> reservations;
-    private Set<UtilisateurEntity> setReservations;
 
     public EvenementEntity (EvenementDto evenementDto) {
         modelMapper.map(evenementDto, this.getClass());
@@ -96,16 +95,6 @@ public class EvenementEntity extends EvenementDto {
 
     public void setReservations(List<UtilisateurEntity> reservations){
         this.reservations = reservations;
-        setReservations = new HashSet<>(reservations);
-    }
-
-    @Transient
-    public Set<UtilisateurEntity> getReservationsSet(){
-        return setReservations;
-    }
-
-    public void setReservationsSet(Set<UtilisateurEntity> set){
-        this.setReservations = set;
     }
 
     @Override
