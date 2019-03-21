@@ -1,4 +1,4 @@
 CREATE TABLE utilisateur (id BIGINT IDENTITY NOT NULL, login VARCHAR  UNIQUE  NOT NULL, password VARCHAR NOT NULL, email VARCHAR UNIQUE NOT NULL, role VARCHAR NOT NULL, PRIMARY KEY(id));
 CREATE TABLE evenement (id BIGINT IDENTITY NOT NULL, nom VARCHAR NOT NULL, date DATE, heure TIME, place INT NOT NULL, PRIMARY KEY(id));
-CREATE TABLE reservation(idevent IDENTITY NOT NULL, iduser IDENTITY NOT NULL, FOREIGN KEY(idevent) REFERENCES evenement(id), FOREIGN KEY(iduser) REFERENCES utilisateur(id));
+CREATE TABLE reservation(idevent INT NOT NULL, iduser INT NOT NULL, FOREIGN KEY(idevent) REFERENCES evenement(id), FOREIGN KEY(iduser) REFERENCES utilisateur(id));
 ALTER TABLE utilisateur ADD CONSTRAINT CHK_User CHECK (role='admin' OR role='user');
