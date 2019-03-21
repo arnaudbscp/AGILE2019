@@ -95,20 +95,23 @@ public class EvenementRessource {
         }
     }
 
-    /*/à finir
-    /*@PUT
-    @Path("/{id}")
-    public Response addUser(EvenementDto evenementDto, @PathParam("id") Long id){
+    @PUT
+    @Path("/{idevent}/{iduser}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addUser(@PathParam("idevent") Long idevent, @PathParam("iduser") Long iduser){
         DataAccess dataAccess = DataAccess.begin();
-        EvenementEntity ee = new EvenementEntity(evenementDto);
+        EvenementEntity ee = dataAccess.getEventById(idevent);
+        if(ee == null) {
+            return Response.status(Response.Status.NOT_FOUND).entity("Event not found\n").build();
+        }
         try {
-            ee.getReservations().add
+            ee.getReservations().add(dataAccess.getUserById(iduser));
             dataAccess.updateEvent(ee);
             dataAccess.closeConnection(true);
             return Response.status(Response.Status.NO_CONTENT).build();
         } catch (Exception e) {
             dataAccess.closeConnection(false);
-            return Response.status(Response.Status.NOT_FOUND).entity("Event not found\n").build();
+            return Response.status(Response.Status.NOT_FOUND).entity("User not found\n").build();
         }
-    }*/
+    }
 }

@@ -164,6 +164,18 @@ public class DataAccess {
         return query.getResultList();
     }
 
+    public EvenementEntity getEventById(Long id) {
+        EvenementEntity returnValue;
+        TypedQuery<EvenementEntity> query = em.createNamedQuery("FindEventById", EvenementEntity.class);
+        query.setParameter("eid", id);
+        try {
+            returnValue = query.getSingleResult();
+        } catch (NonUniqueResultException | NoResultException e) {
+            returnValue = null;
+        }
+        return returnValue;
+    }
+
 
     /**
      * Recherche d'evenements à partir d'une nom.

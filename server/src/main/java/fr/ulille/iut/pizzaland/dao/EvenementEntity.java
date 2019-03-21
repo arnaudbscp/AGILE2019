@@ -17,7 +17,8 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = "FindAllEvents", query = "SELECT e FROM EvenementEntity e"),
         @NamedQuery(name = "FindEventByName", query = "SELECT e FROM EvenementEntity e WHERE e.nom = :enom"),
-        @NamedQuery(name = "FindEventByDate", query = "SELECT e FROM EvenementEntity e WHERE e.date = :edate")
+        @NamedQuery(name = "FindEventByDate", query = "SELECT e FROM EvenementEntity e WHERE e.date = :edate"),
+        @NamedQuery(name = "FindEventById", query = "SELECT e from EvenementEntity e where e.id = :eid")
 })
 
 public class EvenementEntity extends EvenementDto {
