@@ -1,11 +1,14 @@
 package fr.ulille.iut.pizzaland.dao;
 
-import fr.ulille.iut.pizzaland.dto.EvenementShortDto;
+import fr.ulille.iut.pizzaland.dto.EvenementDto;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -17,18 +20,21 @@ import javax.persistence.*;
         @NamedQuery(name = "FindEventByDate", query = "SELECT e FROM EvenementEntity e WHERE e.date = :edate")
 })
 
-public class EvenementEntity extends EvenementShortDto {
+public class EvenementEntity extends EvenementDto {
     private final static Logger logger = LoggerFactory.getLogger(UtilisateurEntity.class);
     private static ModelMapper modelMapper = new ModelMapper();
 
-    public EvenementEntity (EvenementShortDto evenementDto) {
+    private List<UtilisateurEntity> reservations;
+    private Set<UtilisateurEntity> setReservations;
+
+    public EvenementEntity (EvenementDto evenementDto) {
         modelMapper.map(evenementDto, this.getClass());
     }
 
     public EvenementEntity() {}
 
-    public static EvenementShortDto convertToDto(EvenementEntity evenementEntity) {
-        return  modelMapper.map(evenementEntity, EvenementShortDto.class);
+    public static EvenementDto convertToDto(EvenementEntity evenementEntity) {
+        return  modelMapper.map(evenementEntity, EvenementDto.class);
     }
 
     @Id
@@ -68,6 +74,27 @@ public class EvenementEntity extends EvenementShortDto {
     public String getHeure(){ return heure;}
 
     public void setHeure(String heure){this.heure = heure;}
+
+    @ManyToMany
+    @JoinTable(name = "reservation", joinColumns = @JoinColumn(name = "idevent", referencedColumnName = "id", nullable = false),
+    inverseJoinColumns = @JoinColumn(name = "iduser", referencedColumnName = "id", nullable = false))
+    public List<UtilisateurEntity> getReservations(){
+        return reservations;
+    }
+
+    public void setReservations(List<UtilisateurEntity> reservations){
+        this.reservations = reservations;
+        setReservations = new HashSet<>(reservations);
+    }
+
+    @Transient
+    public Set<UtilisateurEntity> getReservationsSet(){
+        return setReservations;
+    }
+
+    public void setReservationsSet(Set<UtilisateurEntity> set){
+        this.setReservations = set;
+    }
 
     @Override
     public String toString() {

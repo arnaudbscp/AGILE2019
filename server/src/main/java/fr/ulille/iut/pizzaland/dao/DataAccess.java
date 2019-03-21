@@ -76,6 +76,18 @@ public class DataAccess {
         return query.getResultList();
     }
 
+    public UtilisateurEntity getUserById(Long id) {
+        UtilisateurEntity returnValue;
+        TypedQuery<UtilisateurEntity> query = em.createNamedQuery("FindUserById", UtilisateurEntity.class);
+        query.setParameter("uid", id);
+        try {
+            returnValue = query.getSingleResult();
+        } catch (NonUniqueResultException | NoResultException e) {
+            returnValue = null;
+        }
+        return returnValue;
+    }
+
 
     /**
      * Recherche d'un utilisateur à partir de son login.
