@@ -73,11 +73,11 @@ public class EvenementRessource {
     @GET
     @Path("/{nom}/{date}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<EvenementDto> getNomDate(@PathParam("nom") String nom, @PathParam("date") String date) {
+    public EvenementDto getNomDate(@PathParam("nom") String nom, @PathParam("date") String date) {
         DataAccess dataAccess = DataAccess.begin();
         List<EvenementEntity> li = dataAccess.getEventByDate(date);
         dataAccess.closeConnection(true);
-        return li.stream().map(EvenementEntity::convertToDto).collect(Collectors.toList());
+        return li.stream().filter(e -> e.getNom().equals(nom)).map(EvenementEntity::convertToDto).collect(Collectors.toList()).get(0);
     }
 
     /*DELETE EVENT WITH NAME AND DATE*/
@@ -96,16 +96,20 @@ public class EvenementRessource {
     }
 
     @PUT
-    @Path("/{idevent}/{iduser}")
+    @Path("/{nom}/{login}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addUser(@PathParam("idevent") Long idevent, @PathParam("iduser") Long iduser){
+    public Response addUser(@PathParam("nom") String nom, @PathParam("login") String login){
         DataAccess dataAccess = DataAccess.begin();
-        EvenementEntity ee = dataAccess.getEventById(idevent);
-        if(ee == null) {
+        if(dataAccess.getAllEvents().stream().map(e -> e.getNom()).filter(e -> e.equals(nom)).toArray() == null){
             return Response.status(Response.Status.NOT_FOUND).entity("Event not found\n").build();
         }
+        EvenementEntity ee = dataAccess.getAllEvents()
+                .stream()
+                .filter(e -> e.getNom().equals(nom))
+                .collect(Collectors.toList())
+                .get(0);
         try {
-            ee.getReservations().add(dataAccess.getUserById(iduser));
+            ee.getReservations().add(dataAccess.getUserByLogin(login));
             dataAccess.updateEvent(ee);
             dataAccess.closeConnection(true);
             return Response.status(Response.Status.NO_CONTENT).build();

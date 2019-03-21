@@ -14,7 +14,8 @@ import java.util.Objects;
 @NamedQueries({
       @NamedQuery(name = "FindAllUsers", query = "SELECT u FROM UtilisateurEntity u"),
         @NamedQuery(name = "FindUserById", query = "SELECT u FROM UtilisateurEntity u WHERE u.id = :uid"),
-      @NamedQuery(name = "FindUserByLoginPassword", query = "SELECT u from UtilisateurEntity u WHERE u.login = :ulogin AND u.password = :upassword")
+      @NamedQuery(name = "FindUserByLoginPassword", query = "SELECT u from UtilisateurEntity u WHERE u.login = :ulogin AND u.password = :upassword"),
+        @NamedQuery(name = "FindUserByLogin", query = "SELECT u from UtilisateurEntity u WHERE u.login = :ulogin")
 })
 public class UtilisateurEntity extends UtilisateurDto {
     private final static Logger logger = LoggerFactory.getLogger(UtilisateurEntity.class);

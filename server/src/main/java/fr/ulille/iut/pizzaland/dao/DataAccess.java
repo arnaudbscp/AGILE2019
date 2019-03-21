@@ -109,6 +109,18 @@ public class DataAccess {
         return returnValue;
     }
 
+    public UtilisateurEntity getUserByLogin(String login) {
+        UtilisateurEntity returnValue;
+        TypedQuery<UtilisateurEntity> query = em.createNamedQuery("FindUserByLogin", UtilisateurEntity.class);
+        query.setParameter("ulogin", login);
+        try {
+            returnValue = query.getSingleResult();
+        } catch (NonUniqueResultException | NoResultException e) {
+            returnValue = null;
+        }
+        return returnValue;
+    }
+
     /**
      * Ajoute un utilisateur à la liste des utilisateurs disponibles.
      * Un utilisateur de même login ne doit pas déjà exister.
