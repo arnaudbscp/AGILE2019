@@ -1,4 +1,4 @@
-package fr.ulille.iut.pizzaland;
+package fr.ulille.iut.ramponno;
 
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -13,13 +13,13 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-import static fr.ulille.iut.pizzaland.MainActivity.LOG_TAG;
+import static fr.ulille.iut.ramponno.MainActivity.LOG_TAG;
 
-public class GenericRequest extends Request<PizzalandResponse> {
-    private Response.Listener<PizzalandResponse> listener = null;
+public class GenericRequest extends Request<RamponnoResponse> {
+    private Response.Listener<RamponnoResponse> listener = null;
     private JSONObject content = null;
 
-    public GenericRequest(int method, String url, @Nullable JSONObject content, Response.Listener<PizzalandResponse> listener, Response.ErrorListener errorListener) {
+    public GenericRequest(int method, String url, @Nullable JSONObject content, Response.Listener<RamponnoResponse> listener, Response.ErrorListener errorListener) {
         super(method, url, (Response.ErrorListener) errorListener);
         this.listener = listener;
         this.content = content;
@@ -44,12 +44,12 @@ public class GenericRequest extends Request<PizzalandResponse> {
     }
 
     @Override
-    protected Response<PizzalandResponse> parseNetworkResponse(NetworkResponse response) {
+    protected Response<RamponnoResponse> parseNetworkResponse(NetworkResponse response) {
         try {
             String json = new String(response.data,
                     HttpHeaderParser.parseCharset(response.headers));
             String location = response.headers.get("Location");
-            return Response.success(new PizzalandResponse(json, response.statusCode, location), HttpHeaderParser.parseCacheHeaders(response));
+            return Response.success(new RamponnoResponse(json, response.statusCode, location), HttpHeaderParser.parseCacheHeaders(response));
         } catch (UnsupportedEncodingException e) {
             Log.e(LOG_TAG, "Character encoding not supported: " + HttpHeaderParser.parseCharset(response.headers));
         }
@@ -57,7 +57,7 @@ public class GenericRequest extends Request<PizzalandResponse> {
     }
 
     @Override
-    protected void deliverResponse(PizzalandResponse response) {
+    protected void deliverResponse(RamponnoResponse response) {
         listener.onResponse(response);
     }
 }

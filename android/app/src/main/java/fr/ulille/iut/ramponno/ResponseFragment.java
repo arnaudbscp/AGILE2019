@@ -1,4 +1,4 @@
-package fr.ulille.iut.pizzaland;
+package fr.ulille.iut.ramponno;
 
 import android.content.Context;
 import android.net.Uri;
@@ -43,21 +43,6 @@ public class ResponseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_response, container, false);
-    }
-
-    @Override
-    public void onActivityCreated(Bundle bundle) {
-        super.onActivityCreated(bundle);
-        tvResponse = getActivity().findViewById(R.id.etResponse);
-        tvStatus = getActivity().findViewById(R.id.tvStatus);
-        tvLocation = getActivity().findViewById(R.id.tvLocation);
     }
 
     @Override

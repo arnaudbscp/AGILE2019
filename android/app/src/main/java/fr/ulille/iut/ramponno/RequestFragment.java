@@ -1,13 +1,11 @@
-package fr.ulille.iut.pizzaland;
+package fr.ulille.iut.ramponno;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import static fr.ulille.iut.pizzaland.Data.CUSTOM_PRESET;
+import static fr.ulille.iut.ramponno.Data.CUSTOM_PRESET;
 
 
 /**
@@ -88,12 +86,6 @@ public class RequestFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
-    public View onCreateView(@NonNull  LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_request, container, false);
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -109,13 +101,6 @@ public class RequestFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle bundle) {
         super.onActivityCreated(bundle);
-        tvFullPath = getActivity().findViewById(R.id.tvFullPath);
-        spMethod = getActivity().findViewById(R.id.spMethod);
-        etContent = getActivity().findViewById(R.id.etContent);
-        etPath = getActivity().findViewById(R.id.etPath);
-        spPreset = getActivity().findViewById(R.id.spPreset);
-        btSend = getActivity().findViewById(R.id.btSend);
-        etQuery = getActivity().findViewById(R.id.etQuery);
 
         updateData();
 

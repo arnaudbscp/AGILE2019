@@ -1,17 +1,17 @@
-package fr.ulille.iut.pizzaland;
+package fr.ulille.iut.ramponno;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class PizzalandResponse {
+public class RamponnoResponse {
     private JSONObject jsonObject = null;
     private JSONArray jsonArray = null;
     private String string = null;
     private int statusCode;
     private String location;
 
-    public PizzalandResponse(String string, int statusCode, String location) {
+    public RamponnoResponse(String string, int statusCode, String location) {
         this.statusCode = statusCode;
         this.location = location;
         try {

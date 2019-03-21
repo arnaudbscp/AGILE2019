@@ -1,4 +1,4 @@
-package fr.ulille.iut.pizzaland;
+package fr.ulille.iut.ramponno;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -17,7 +17,9 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 
-import static fr.ulille.iut.pizzaland.MainActivity.LOG_TAG;
+import fr.ulille.iut.ramponno.RamponnoResponse;
+
+import static fr.ulille.iut.ramponno.MainActivity.LOG_TAG;
 
 public class Data implements Parcelable {
     // Status code Value
@@ -285,7 +287,7 @@ public class Data implements Parcelable {
         return requestContent;
     }
 
-    public void setResponse(PizzalandResponse response) {
+    public void setResponse(RamponnoResponse response) {
         setResponseContent(response.toString());
         statusCode = response.getStatusCode();
         location = response.getLocation();
