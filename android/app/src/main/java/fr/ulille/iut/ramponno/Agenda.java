@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -34,7 +35,14 @@ public class Agenda extends AppCompatActivity {
         setContentView(R.layout.activity_agenda);
         tvDisplay = (ListView) findViewById(R.id.tvDisplay);
         doGetEvenementsAsString("");
-        tvDisplay.getTag();
+        tvDisplay.getTag(); Intent intent = getIntent();
+        String login = "null";
+        if (intent.hasExtra("mail")) {
+            login = intent.getStringExtra("mail");
+        }
+
+        Toast toast = Toast.makeText(getApplicationContext(), login, Toast.LENGTH_SHORT);
+        toast.show();
     }
 
 
