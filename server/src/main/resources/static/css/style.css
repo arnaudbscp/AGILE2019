@@ -1,0 +1,33 @@
+
+.navbar-header{
+	width: 100%;
+    background-image: url('./logo.png');
+    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.Connexion {
+	margin-top: 50px;
+}
+
+.InscriptionPage{
+	margin-top: 80px;
+}
+
+.navbar.navbar-inverse.navbar-fixed-top {
+	background-color: #fff;
+}
+
+.col-lg-12{
+	margin-top: 280px;
+}
+
+/*.navbar-inverse.navbar-nav > li > a {
+    color: green;
+}*/
+
+.navbar-nav > li > a {
+    color: green;
+}
