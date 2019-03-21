@@ -5,8 +5,20 @@ import Page from './Page.js';
 import $ from 'jquery';
 
 export default class HomePage extends Page {
-	#data;
+	//#data;
 
+	render():string {
+		return `
+		<div <br style="margin-top:90px;" /> </div>	
+
+		<select name="events" >
+		<option value="1">Premier Cours</option>
+		<option value="2">Deuxième Cours</option>
+		<option value="3">Troisième Cours</option>
+		<option value="4">Quatrième Cours</option>
+		</select> 
+	`;
+	}
 /*	constructor( data:Array<{nom:string, base:string, prix_petite:number, prix_grande:number}> ){
 		super( 'La carte' );
 		this.attribute = {name:'class', value:'home'};
@@ -29,7 +41,7 @@ export default class HomePage extends Page {
 				//$(container).find('a').click( this.onThumbnailClick )
 			});
 	}
-/*
+
 	onThumbnailClick(event:Event):void {
 		event.preventDefault();
 		window.open(
