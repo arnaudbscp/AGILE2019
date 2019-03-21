@@ -34,11 +34,10 @@ export default class HomePage extends Page {
 		});
 
 	}
-	
+
 	// Lien personnalisé selon l'evenement : on recupère le date/nom pour réserver
 	submit(event:Event):void {
 		let nbElements = $( 'form.Evenement' ).length;
-		console.log(nbElements);
 		let terminaison = new Array();
 		for(let i = 1; i <= nbElements; i++) {
 			terminaison[i-1] = $(event.currentTarget).parent().children(`:nth-child(${i})`).children(':first-child').attr('class');
@@ -46,11 +45,25 @@ export default class HomePage extends Page {
 		let c = 0;
 		c = $(event.currentTarget).index();
 		event.preventDefault();
+		let cc = "";
+		var name = "username" + "=";
+  		var decodedCookie = decodeURIComponent(document.cookie);
+  		var ca = decodedCookie.split(';');
+  		for(var i = 0; i <ca.length; i++) {
+    		var ccc = ca[i];
+    		while (ccc.charAt(0) == ' ') {
+      			ccc = ccc.substring(1);
+    		}
+    		if (ccc.indexOf(name) == 0) {
+      		cc = ccc.substring(name.length, c.length);
+    		}
+  		}
+		console.log(document.cookie);
+		if(document.cookie != "") {
             // à modifier
-			fetch( `http://localhost:8080/api/v1/${terminaison[c]}`, {
-					method:'POST',
+			fetch( `http://localhost:8080/api/v1/events/${terminaison[c]}/${cc}`, {
+					method:'PUT',
 					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify(utilisateur)
 				})
 			.then(response => {
 				if (!response.ok) {
@@ -58,15 +71,10 @@ export default class HomePage extends Page {
 				}
 				return response.json();
 			})
-			.then ( newUser => {
-                alert(`Utilisateur "${newUser.login}" enregistrée avec succès ! (id ${newUser.id})`);
-				// puis on vide le formulaire
-				const form:?HTMLElement = document.querySelector('form.InscriptionPage');
-				if (form && form instanceof HTMLFormElement) {
-					form.reset();
-				}
+			.then ( newReserv => {
+                alert(`Reservation faite !`);
 			})
-			.catch( error => alert(`Enregistrement impossible : ${error.message}`) );
-
+			//.catch( error => alert(`Enregistrement impossible : ${error.message}`) );
+		}
 	}
 }

@@ -19,7 +19,7 @@ export default class Connexion extends Page {
           <label for="exampleInputPassword1">Password</label>
           <input type="password" name='password' class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Se connecter</button>
       </form>`
 	}
 
@@ -56,7 +56,7 @@ export default class Connexion extends Page {
 			};
 			fetch( '/api/v1/users', {
 					method:'GET',
-					headers: { 'Content-Type': 'application/json' },
+					//headers: { 'Content-Type': 'application/json' },
 					//body: JSON.stringify(utilisateur)
 				})
 			.then(response => {
@@ -66,7 +66,24 @@ export default class Connexion extends Page {
 				return response.json();
 			})
 			.then ( newUtilisateur => {
-				alert(`Utilisateur "${newUtilisateur.login}" s'est connecté avec succès ! (id ${newUtilisateur.id})`);
+				let p = 0;
+				let pseudo = "";
+				for(let i = 0; i < newUtilisateur.length; i++) {
+					if(newUtilisateur[i].email == utilisateur.login) {
+						p = p +1;
+						pseudo = newUtilisateur[i].login;
+					}
+					if(newUtilisateur[i].password == utilisateur.password) {
+						p = p +1;
+					}
+				}
+				console.log(p);
+				if(p == 2) {
+					alert(`Utilisateur "${utilisateur.login}" s'est connecté avec succès ! Réservation possible.`);		
+					document.cookie = `username=${pseudo};expires=Thu, 21 Mar 2019 16:00:00 UTC`;
+				}else {
+					alert(`Mauvaise connexion`);
+				}
 				// puis on vide le formulaire
 				// const form:?HTMLElement = document.querySelector('form.connexion');
 				// if (form && form instanceof HTMLFormElement) {
