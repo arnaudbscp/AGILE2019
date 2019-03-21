@@ -8,11 +8,11 @@ INSERT INTO evenement (id, nom, date, place, heure) VALUES (2, 'Deuxieme Cours',
 INSERT INTO evenement (id, nom, date, place, heure) VALUES (3, 'Troisieme Cours', '2019-03-22', 12, '09:30:00');
 INSERT INTO evenement (id, nom, date, place, heure) VALUES (4, 'Quatrieme Cours', '2019-03-23', 13, '10:00:00');
 
-INSERT INTO evenementInscrits(idevent, iduser) VALUES (1, 1);
-INSERT INTO evenementInscrits(idevent, iduser) VALUES (1, 2);
-INSERT INTO evenementInscrits(idevent, iduser) VALUES (2, 3);
-INSERT INTO evenementInscrits(idevent, iduser) VALUES (2, 4);
-INSERT INTO evenementInscrits(idevent, iduser) VALUES (3, 1);
-INSERT INTO evenementInscrits(idevent, iduser) VALUES (3, 3);
-INSERT INTO evenementInscrits(idevent, iduser) VALUES (3, 4);
-INSERT INTO evenementInscrits(idevent, iduser) VALUES (4, 3);
+INSERT INTO reservation(idevent, iduser) VALUES (1, 1);
+INSERT INTO reservation(idevent, iduser) VALUES (1, 2);
+INSERT INTO reservation(idevent, iduser) VALUES (2, 3);
+INSERT INTO reservation(idevent, iduser) VALUES (2, 4);
+INSERT INTO reservation(idevent, iduser) VALUES (3, 1);
+INSERT INTO reservation(idevent, iduser) VALUES (3, 3);
+INSERT INTO reservation(idevent, iduser) VALUES (3, 4);
+INSERT INTO reservation(idevent, iduser) VALUES (4, 3); 3);
