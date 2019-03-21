@@ -97,7 +97,6 @@ public class EvenementRessource {
 
     @PUT
     @Path("/{nom}/{login}")
-    @Produces(MediaType.APPLICATION_JSON)
     public Response addUser(@PathParam("nom") String nom, @PathParam("login") String login){
         DataAccess dataAccess = DataAccess.begin();
         if(dataAccess.getAllEvents().stream().map(e -> e.getNom()).filter(e -> e.equals(nom)).toArray() == null){
