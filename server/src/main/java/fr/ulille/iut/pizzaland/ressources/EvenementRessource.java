@@ -2,7 +2,7 @@ package fr.ulille.iut.pizzaland.ressources;
 
 import fr.ulille.iut.pizzaland.dao.DataAccess;
 import fr.ulille.iut.pizzaland.dao.EvenementEntity;
-import fr.ulille.iut.pizzaland.dto.EvenementDto;
+import fr.ulille.iut.pizzaland.dto.EvenementShortDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import javax.ws.rs.*;
@@ -26,7 +26,7 @@ public class EvenementRessource {
     /* GET ALL EVENTS */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<EvenementDto> getAll() {
+    public List<EvenementShortDto> getAll() {
         DataAccess dataAccess = DataAccess.begin();
         List<EvenementEntity> li = dataAccess.getAllEvents();
         dataAccess.closeConnection(true);
@@ -64,7 +64,7 @@ public class EvenementRessource {
     @GET
     @Path("/{nom}/{date}")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<EvenementDto> getNomDate(@PathParam("nom") String nom, @PathParam("date") String date) {
+    public List<EvenementShortDto> getNomDate(@PathParam("nom") String nom, @PathParam("date") String date) {
         DataAccess dataAccess = DataAccess.begin();
         List<EvenementEntity> li = dataAccess.getEventByDate(date);
         dataAccess.closeConnection(true);
