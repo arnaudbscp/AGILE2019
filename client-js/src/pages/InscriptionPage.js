@@ -5,7 +5,7 @@ import { StringDecoder } from 'string_decoder';
 
 export default class InscriptionPage extends Page {
 	constructor(){
-		super('S\'inscire');
+		super('S\'inscrire');
 		// $FlowFixMe
 		this.submit = this.submit.bind(this);
 	}
