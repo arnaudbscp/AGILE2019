@@ -28,5 +28,23 @@
 }*/
 
 .navbar-nav > li > a {
-    color: green;
+    color: #0F828C !important;
+}
+
+body{
+    font-family: "Polly regular";
+    color: #4d4d4d;
+    font-size:12pt;
+}
+
+h1{
+    font-size: 35pt;
+    color: #0D3047;
+    font-family:"Grand Hotel";
+}
+
+h2, h3, h4, h5, h6{
+    font-family: "Somatic Rounded";
+    color: #ED7212;
+    font-size: 12pt;
 }
