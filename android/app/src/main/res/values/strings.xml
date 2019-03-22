@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Rest Client</string>
+    <string name="app_name">Ramponno Tapisserie</string>
 
     <string name="lbl_test_rest">Test Pizzaland</string>
     <string name="lblGetIngredients">Get Ingredients (StringRequest)</string>
@@ -159,5 +159,16 @@
         <item>@string/query_5</item>
         <item>@string/content_5</item>
     </array>
+    <string name="title_activity_tmp_login">Sign in</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">exemple@mail.com</string>
+    <string name="prompt_password">Mot de passe</string>
+    <string name="action_sign_in">Se connecter</string>
+    <string name="action_sign_in_short">Se connecter</string>
+    <string name="error_invalid_email">L\'adresse mail saisie n\'est pas valide</string>
+    <string name="error_invalid_password">Le mot de passe saisi dois comprendre au moins 4 caracteres</string>
+    <string name="error_incorrect_password">Le mot de passe saisi est incorrect</string>
+    <string name="error_field_required">Ce champs est requis</string>
+    <string name="error_unknown_mail">Ce mail est inconnu</string>
 
 </resources>

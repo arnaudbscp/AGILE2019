@@ -8,6 +8,18 @@
     tools:context=".MainActivity">
 
 
+    <ProgressBar
+        android:id="@+id/login_progress2"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="96dp"
+        android:progress="@android:integer/config_shortAnimTime"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"

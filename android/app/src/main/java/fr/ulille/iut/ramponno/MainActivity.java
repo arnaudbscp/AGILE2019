@@ -1,15 +1,21 @@
 package fr.ulille.iut.ramponno;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     BaseAccess base = new BaseAccess(this);
     TextView mailField;
     TextView passField;
+    ProgressBar progressView;
 
 
     public static final String SERVER_KEY = "SERVEUR";
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         mailField = (TextView) findViewById(R.id.mailField);
         passField = (TextView) findViewById(R.id.passField);
+        progressView = findViewById(R.id.login_progress);
 
         queue = Volley.newRequestQueue(MainActivity.this);
 
@@ -62,13 +70,13 @@ public class MainActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
     public void openSigninActivity(View view){
-        Intent intent = new Intent(this, Signin.class);
+        Intent intent = new Intent(this, tmpLogin.class);
         startActivity(intent);
     }
 
     public void connect(View view){
         Log.d("connect","Lauching connect");
-        connectTask();
+        if (verifTask())connectTask();
     }
     private void init(){
     EditText mail = (EditText)findViewById(R.id.mailField);
@@ -109,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(getApplicationContext(), retour, Toast.LENGTH_SHORT);
                         toast.show();
                         if (retour.equals("noMail")){
-
+                            mailField.setError(getString(R.string.error_unknown_mail));
                         }else if (retour.equals("noPass")){
-
+                            passField.setError(getString(R.string.error_incorrect_password));
                         }else{
                             Intent intent = new Intent(MainActivity.this, Agenda.class);
                             intent.putExtra("mail",retour);
@@ -157,7 +165,90 @@ public class MainActivity extends AppCompatActivity {
             i++;
 
         }
+        Toast toast = Toast.makeText(getApplicationContext(), mailFound+"", Toast.LENGTH_SHORT);
+        toast.show();
         if (mailFound)return "noPass";
         return  "noMail";
     }
+
+    private boolean verifTask() {
+
+        // Reset errors.
+        mailField.setError(null);
+        passField.setError(null);
+
+        // Store values at the time of the login attempt.
+        String email = mailField.getText().toString();
+        String password = passField.getText().toString();
+
+        boolean cancel = false;
+        View focusView = null;
+
+        // Check for a valid password, if the user entered one.
+        if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
+            /*passField.setError(getString(R.string.error_incorrect_password));
+            focusView = passField;
+            cancel = true;*/
+        }
+
+        // Check for a valid email address.
+        if (TextUtils.isEmpty(email)) {
+            mailField.setError(getString(R.string.error_field_required));
+            focusView = mailField;
+            cancel = true;
+        } else if (!isEmailValid(email)) {
+            mailField.setError(getString(R.string.error_invalid_email));
+            focusView = mailField;
+            cancel = true;
+        }
+
+        if (cancel) {
+            // There was an error; don't attempt login and focus the first
+            // form field with an error.
+            focusView.requestFocus();
+        } else {
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            //showProgress(true);
+        }
+        return  !cancel;
+    }
+
+    private boolean isEmailValid(String email) {
+        //TODO: Replace this with your own logic
+        if (!email.contains("."))return  false;
+        if (!email.contains("@"))return  false;
+        if (email.substring(email.lastIndexOf(".")).length()<3) return false;
+        if (email.substring(email.indexOf("@"),email.lastIndexOf(".")).length()>3);
+
+        return true;
+    }
+
+    private boolean isPasswordValid(String password) {
+        //TODO: Replace this with your own logic
+        return password.length() > 4;
+    }
+    /*
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    private void showProgress(final boolean show) {
+        // On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
+        // for very easy animations. If available, use these APIs to fade-in
+        // the progress spinner.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            progressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            progressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    progressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            // The ViewPropertyAnimator APIs are not available, so simply show
+            // and hide the relevant UI components.
+            progressView.setVisibility(show ? View.VISIBLE : View.GONE);
+        }
+    }*/
 }

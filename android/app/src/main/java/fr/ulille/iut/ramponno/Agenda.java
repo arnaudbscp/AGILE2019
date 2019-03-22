@@ -1,12 +1,12 @@
 package fr.ulille.iut.ramponno;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -18,6 +18,11 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 
 public class Agenda extends AppCompatActivity {
@@ -26,6 +31,9 @@ public class Agenda extends AppCompatActivity {
 
     String[] nomEvent;
     public static final String SERVER_KEY = "SERVEUR";
+    List<Item> items = new ArrayList<Item>();
+    String login = "none";
+
 
 
     @Override
@@ -36,44 +44,23 @@ public class Agenda extends AppCompatActivity {
         tvDisplay = (ListView) findViewById(R.id.tvDisplay);
         doGetEvenementsAsString("");
         tvDisplay.getTag(); Intent intent = getIntent();
-        String login = "null";
         if (intent.hasExtra("mail")) {
             login = intent.getStringExtra("mail");
         }
+        if (login.equals("none")){
+            Toast toast = Toast.makeText(getApplicationContext(), "Veuillez vous connecter", Toast.LENGTH_LONG);
+            toast.show();
+        }
 
-        Toast toast = Toast.makeText(getApplicationContext(), login, Toast.LENGTH_SHORT);
-        toast.show();
     }
 
 
-    public void showStringResponse(String response) {
-        tvDisplay.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2,new String[]{response}));
+    public void showStringResponse(JSONArray response) {
+        MyListAdapter adapter = new MyListAdapter(Agenda.this, genererItems(response));
+        tvDisplay.setAdapter(adapter);
     }
     public void showEvent(JSONArray response){
-        nomEvent = new String[response.length()];
-        for (int i = 0 ; i < response.length() ; i++) {
-            try {
-                String name = response.getString(i);
-                String[] data = name.split(",");
-                name = data[4].replaceAll("\"", "").replaceAll("\\}", "");
-                name = name.substring(name.indexOf(':') + 1);
-                nomEvent[i] = name;
-            }catch (JSONException e){
-                e.printStackTrace();
-            }
-            tvDisplay.setAdapter(new ArrayAdapter<String>(Agenda.this, android.R.layout.simple_list_item_1, nomEvent));
-            tvDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Intent intent = new Intent(Agenda.this, Details.class);
-                    intent.putExtra("nom", nomEvent[position]);
-                    intent.putExtra("pos", position);
-                    startActivity(intent);
-                }
-            });
-
-
-        }
+        genererItems(response);
     }
 
     public void doGetEvenementsAsString(String path) {
@@ -88,6 +75,7 @@ public class Agenda extends AppCompatActivity {
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
+                        items = genererItems(response);
                         showEvent(response);
                     }
                 },
@@ -108,5 +96,57 @@ public class Agenda extends AppCompatActivity {
         if (base.queue != null) {
             base.queue.cancelAll(base.VOLLEY_TAG);
         }
+    }
+
+
+    private List<Item> genererItems(JSONArray response){
+        List<Item> items = new ArrayList<Item>();
+        items.clear();
+        nomEvent = new String[response.length()];
+        final String[] dates = new String[response.length()];
+        final String[] heures = new String[response.length()];
+        final String[] nomLabels = new String[response.length()];
+        final int[] placesMax = new int[response.length()];
+        final int[] placesUtilises = new int[response.length()];
+        for (int i = 0 ; i < response.length() ; i++) {
+            try {
+                JSONObject lesItems = response.getJSONObject(i);
+                lesItems.getString("date");
+
+                String date = lesItems.getString("date");
+                String heure = lesItems.getString("heure");
+                String nomLabel = lesItems.getString("nom");
+                int places = lesItems.getInt("place");
+                int placesUtilise = lesItems.getJSONArray("reservations").length();
+
+                dates[i]=date;
+                heures[i]=heure;
+                nomLabels[i]=nomLabel;
+                placesMax[i]=places;
+                placesUtilises[i]=placesUtilise;
+
+                items.add(new Item(Color.BLUE, nomLabel, "Le "+date+" a "+heure+",   places dispo :"+(places-placesUtilise)+"/"+places));
+
+            }catch (JSONException e){
+                Log.e("erreur de merde", e.getMessage());
+            }
+            MyListAdapter adapter = new MyListAdapter(Agenda.this, items);
+            tvDisplay.setAdapter(adapter);
+            tvDisplay.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    Intent intent = new Intent(Agenda.this, Details.class);
+                    intent.putExtra("date", dates[position]);
+                    intent.putExtra("heure", heures[position]);
+                    intent.putExtra("nom", nomLabels[position]);
+                    intent.putExtra("places", placesMax[position]);
+                    intent.putExtra("placesUtilise", placesUtilises[position]);
+                    startActivity(intent);
+                }
+            });
+
+
+        }
+        return items;
     }
 }
