@@ -32,7 +32,6 @@ export default class HomePage extends Page {
 				$('form.Evenement').submit( this.submit );
 				$('input').attr('value','Réserver');
 		});
-
 	}
 
 	// Lien personnalisé selon l'evenement : on recupère le date/nom pour réserver

@@ -28,11 +28,13 @@
 }*/
 
 .navbar-nav > li > a {
+
     color: #000614 !important;
 }
 
 .navbar-inverse .navbar-nav > .active > a {
     background-color: #0F828C;
+
 }
 
 body{
@@ -58,3 +60,4 @@ h2, h3, h4, h5, h6{
     background-color: #0F828C;
     border-radius: 10px;
 }
+

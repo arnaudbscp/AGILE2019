@@ -52,11 +52,19 @@ public class Details extends AppCompatActivity {
         if (intent.hasExtra("desc")) {
             desc = intent.getStringExtra("desc");
         }
+        int placesMax = -1;
+        if (intent.hasExtra("places")) {
+            placesMax = intent.getIntExtra("places",-1);
+        }
+        int placeUtilise = -1;
+        if (intent.hasExtra("placesUtilise")) {
+            placeUtilise = intent.getIntExtra("placesUtilise",-1);
+        }
 
         titreView.setText(titre + "");
         dateView.setText(date + "");
         heureView.setText(heure + "");
-        descView.setText(desc + "");
+        descView.setText(desc + "\nIl reste encore "+(placesMax-placeUtilise)+" places sur les "+placesMax+" disponibles");
 
 
     }
