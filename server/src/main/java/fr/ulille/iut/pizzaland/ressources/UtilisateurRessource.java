@@ -102,11 +102,11 @@ public class UtilisateurRessource {
 
     /* DELETE ONE USER WITH LOGIN*/
     @DELETE
-    @Path("/{login}/{password}")
-    public Response remove(@PathParam("login") String login, @PathParam("password") String password) {
+    @Path("/{login}")
+    public Response remove(@PathParam("login") String login) {
         DataAccess dataAccess = DataAccess.begin();
         try {
-            dataAccess.deleteUser(login, password);
+            dataAccess.deleteUser(login);
             dataAccess.closeConnection(true);
             return Response.status(Response.Status.NO_CONTENT).build();
         } catch (Exception e) {

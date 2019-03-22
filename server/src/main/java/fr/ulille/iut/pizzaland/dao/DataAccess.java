@@ -145,11 +145,11 @@ public class DataAccess {
      * Supprime de la base l'utilisateur spéxifié par son login.
      * @param login Le login de l'utilisateur à supprimer.
      */
-    public void deleteUser(String login, String password) {
+    public void deleteUser(String login) {
         TypedQuery<UtilisateurEntity> query = em.createNamedQuery("FindUserByLogin", UtilisateurEntity.class);
         query.setParameter("ulogin", login);
         for (UtilisateurEntity utilisateurEntity: query.getResultList()) {
-            if(utilisateurEntity.getPassword().equals(password))  em.remove(utilisateurEntity);
+            em.remove(utilisateurEntity);
         }
         em.flush();
     }
@@ -251,4 +251,18 @@ public class DataAccess {
         }
     }
 
+
+    public List<EvenementEntity> getEventsByLogin(String login){
+        List<EvenementEntity>  events = getAllEvents();
+        for(EvenementEntity event: events){
+            if(event.getReservations()
+                    .stream()
+                    .map(e -> e.getLogin())
+                    .filter(e -> e.equals(login))
+                    .toArray()[0] == null){
+                events.remove(event);
+            }
+        }
+        return events;
+    }
 }

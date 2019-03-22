@@ -98,9 +98,6 @@ public class EvenementRessource {
     @Path("/{nom}/{login}")
     public Response addUser(@PathParam("nom") String nom, @PathParam("login") String login){
         DataAccess dataAccess = DataAccess.begin();
-        if(dataAccess.getAllEvents().stream().map(e -> e.getNom()).filter(e -> e.equals(nom)).toArray()[0] == null){
-            return Response.status(Response.Status.NOT_FOUND).entity("Event not found\n").build();
-        }
         EvenementEntity ee = dataAccess.getAllEvents()
                 .stream()
                 .filter(e -> e.getNom().equals(nom))
