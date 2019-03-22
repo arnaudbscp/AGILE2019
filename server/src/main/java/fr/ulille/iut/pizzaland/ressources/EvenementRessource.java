@@ -103,6 +103,7 @@ public class EvenementRessource {
                 .filter(e -> e.getNom().equals(nom))
                 .collect(Collectors.toList())
                 .get(0);
+        if(ee.getReservations().size() == ee.getPlace()) return Response.status(Response.Status.LENGTH_REQUIRED).entity("Le cours est plein\nj").build();
         try {
             ee.getReservations().add(dataAccess.getUserByLogin(login));
             dataAccess.updateEvent(ee);
