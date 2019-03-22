@@ -11,6 +11,9 @@ public class EvenementDto{
     protected String nom;
     protected String date;
     protected String heure;
+    protected String heureFin;
+    protected String description;
+    protected int prix;
     protected long place;
     protected List<Long> inscrits;
 
@@ -53,6 +56,18 @@ public class EvenementDto{
     public long getPlace() { return place; }
 
     public void setPlace(long place) { this.place = place; }
+
+    public String getHeureFin() { return heureFin; }
+
+    public void setHeureFin(String heureFin) { this.heureFin = heureFin; }
+
+    public String getDescription() { return description; }
+
+    public void setDescription(String description) { this.description = description; }
+
+    public int getPrix() { return prix; }
+
+    public void setPrix(int prix) { this.prix = prix; }
 
     public String toString() {
         return "Nom " + this.nom + " Date: " + this.date + " Heure: " + this.heure + " Places disponibles: " + this.place;

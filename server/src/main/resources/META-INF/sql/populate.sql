@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS evenement CASCADE;
 DROP TABLE IF EXISTS reservation CASCADE;
 
 CREATE TABLE utilisateur (id BIGINT IDENTITY NOT NULL, login VARCHAR  UNIQUE  NOT NULL, password VARCHAR NOT NULL, email VARCHAR UNIQUE NOT NULL, role VARCHAR NOT NULL, PRIMARY KEY(id));
-CREATE TABLE evenement (id BIGINT IDENTITY NOT NULL, nom VARCHAR NOT NULL, date DATE, heure TIME, place INT NOT NULL, PRIMARY KEY(id));
+CREATE TABLE evenement (id BIGINT IDENTITY NOT NULL, nom VARCHAR NOT NULL, date DATE, heure TIME, heureFin TIME , description VARCHAR, prix INT, place INT NOT NULL, PRIMARY KEY(id));
 CREATE TABLE reservation(idevent INT NOT NULL, iduser INT NOT NULL, PRIMARY KEY (idevent, iduser));
 ALTER TABLE utilisateur ADD CONSTRAINT CHK_User CHECK (role='admin' OR role='user');
 ALTER TABLE reservation ADD CONSTRAINT FK_reservation_idevent FOREIGN KEY (idevent) REFERENCES   
@@ -17,10 +17,10 @@ INSERT INTO utilisateur (id, login, password, email, role) VALUES (2, 'mervo', '
 INSERT INTO utilisateur (id, login, password, email, role) VALUES (3, 'jonas', 'jonas', 'jonas@mail.com', 'user');
 INSERT INTO utilisateur (id, login, password, email, role) VALUES (4, 'toto', 'toto', 'toto@mail.com', 'user');
 
-INSERT INTO evenement (id, nom, date, place, heure) VALUES (1, 'PremierCours', '2019-03-20', 10, '15:00:00');
-INSERT INTO evenement (id, nom, date, place, heure) VALUES (2, 'DeuxiemeCours', '2019-03-21', 11, '10:30:00');
-INSERT INTO evenement (id, nom, date, place, heure) VALUES (3, 'TroisiemeCours', '2019-03-22', 12, '09:30:00');
-INSERT INTO evenement (id, nom, date, place, heure) VALUES (4, 'QuatriemeCours', '2019-03-23', 13, '10:00:00');
+INSERT INTO evenement (id, nom, date, place, heure, heureFin, description) VALUES (1, 'PremierCours', '2019-03-20', 10, '15:00:00', '16:30:00', 'Le premier cours');
+INSERT INTO evenement (id, nom, date, place, heure, heureFin, description) VALUES (2, 'DeuxiemeCours', '2019-03-21', 11, '10:30:00', '12:00:00', 'Le deuxieme cours');
+INSERT INTO evenement (id, nom, date, place, heure, heureFin, description) VALUES (3, 'TroisiemeCours', '2019-03-22', 12, '09:30:00', '11:30:00', 'Le troisieme cours');
+INSERT INTO evenement (id, nom, date, place, heure, heureFin, description) VALUES (4, 'QuatriemeCours', '2019-03-23', 13, '10:00:00', '13:00:00', 'Le quatrieme cours');
 
 INSERT INTO reservation(idevent, iduser) VALUES (1, 1);
 INSERT INTO reservation(idevent, iduser) VALUES (1, 2);

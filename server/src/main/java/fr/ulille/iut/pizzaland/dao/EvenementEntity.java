@@ -97,6 +97,25 @@ public class EvenementEntity extends EvenementDto {
         this.reservations = reservations;
     }
 
+    @Basic
+    @Column(name = "heureFin", nullable = false, length = -1)
+    public String getHeureFin(){ return heureFin;}
+
+    public void setHeureFin(String heureFin){ this.heureFin = heureFin;}
+
+    @Basic
+    @Column(name = "description",nullable = false, length = -1)
+    public String getDescription(){ return description;}
+
+    public void setDescription(String description){ this.description = description;}
+
+    @Basic
+    @Column(name = "prix",nullable = false, length = -1)
+    public int getPrix(){ return prix;}
+
+    public void setPrix(int prix){ this.prix = prix;}
+
+
     @Override
     public String toString() {
         return "Utilisateur [id=" + id + ", nom=" + nom + " , date=" + date + ", heure=" + heure + "]";
