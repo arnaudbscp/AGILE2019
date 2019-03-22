@@ -11,6 +11,7 @@
     tools:context="fr.ulille.iut.ramponno.tmpLogin">
 
     <!-- Login progress -->
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
