@@ -37,8 +37,16 @@ export default class Admin extends Page {
           <input type="number" class="form-control" id="exampleFormControlInput1" name="place" placeholder="5">
           </div>
           <div class="form-group">
+          <label for="exampleFormControlInput1">Prix</label>
+          <input type="number" class="form-control" id="exampleFormControlInput1" name="prix" placeholder="45">
+          </div>
+          <div class="form-group">
           <label for="exampleFormControlInput1">Heure de départ</label>
           <input type="text" class="form-control" id="exampleFormControlInput1" name="heure" placeholder="10:30:00">
+          </div>
+          <div class="form-group">
+          <label for="exampleFormControlInput1">Heure de fin</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="heureFin" placeholder="12:30:00">
           </div>
           <div class="form-group">
           <label for="exampleFormControlTextarea1">Description</label>
@@ -58,6 +66,14 @@ export default class Admin extends Page {
           </div>
           <button type="submit" class="btn btn-primary mb-2">Supprimer</button>
           </form>
+          <hr class="my-4">
+          <form class="moderer">
+          <div class="form-group">
+          <label for="exampleFormControlInput1">Login utilisateur à supprimer</label>
+          <input type="text" class="form-control" id="exampleFormControlInput1" name="nomt" placeholder="bernard">
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">Supprimer</button>
+          </form>
           `;
       }else if(cc.length > 0 ) {
         return "<h4>Mes prochains evenements :</h4><br/><form class='evenements'><button type=\"submit\" class=\"btn btn-primary mb-2\">Afficher</button></form>";
@@ -69,6 +85,7 @@ export default class Admin extends Page {
         console.log("coucou");
         $('form.ajouter').submit( this.submit );
         $('form.supprimer').submit( this.submitdeux );
+        $('form.moderer').submit( this.submittrois );
         //$('.evenements').submit(this.submittrois);
       }
 
@@ -77,9 +94,12 @@ export default class Admin extends Page {
         event.preventDefault();
         const fieldNames:Array<string> = [
           'date',
+          'description',
           'heure',
+          'heureFin',
           'nom',
-          'place'
+          'place',
+          'prix'
         ];
         // on récupère la valeur saisie dans chaque champ
         const values:any = {};
@@ -113,9 +133,12 @@ export default class Admin extends Page {
           // si il n'y a pas d'erreur on envoie les données
           const evenement = {
             date: values.date,
+            description: values.description,
             heure: values.heure,
+            heureFin: values.heureFin,
             nom: values.nom,
-            place: values.place
+            place: values.place,
+            prix: values.prix
              };
                 //modifier
           fetch( '/api/v1/events/', {
@@ -205,10 +228,47 @@ export default class Admin extends Page {
         }
       }
 
-      /*submittrois(event:Event):void {
+      submittrois(event:Event):void {
         console.log("coucou");
         event.preventDefault();
-        fetch( `/api/v1/events/${evenement.nomd}/${evenement.dated}/`, {
+        const fieldNames:Array<string> = [
+          'nomt',
+        ];
+        // on récupère la valeur saisie dans chaque champ
+        const values:any = {};
+        const errors:Array<string> = [];
+    
+        fieldNames.forEach( (fieldName:string) => {
+          let value = "";
+          // on récupère une référence vers le champ qui a comme attribut `name` la valeur fieldName (nom, base, prix_petite, etc.)
+          const field:?HTMLElement = document.querySelector(`[name=${fieldName}]`);
+          if ( field instanceof HTMLInputElement ) {
+            // s'il s'agit d'un <input> on utilise la propriété `value`
+            // et on retourne la chaine de caractère saisie
+            value = field.value != '' ? field.value : null;
+          } else if ( field instanceof HTMLSelectElement ) {
+            // s'il s'agit d'un <select> on utilise la propriété `selectedOptions`
+            const values:Array<string> = [];
+            for (let i = 0; i < field.selectedOptions.length; i++) {
+              values.push( field.selectedOptions[i].value );
+            }
+          }
+          if ( !value ){
+            errors.push( `Le champ ${fieldName} ne peut être vide !` );
+          }
+          values[fieldName] = value;
+        });
+    
+        if (errors.length) {
+          // si des erreurs sont détectées, on les affiche
+          alert( errors.join('\n') );
+        } else {
+          // si il n'y a pas d'erreur on envoie les données
+          const evenement = {
+            nomt: values.nomt,
+             };
+                //modifier
+          fetch( `/api/v1/users/${evenement.nomt}/`, {
               method:'DELETE',
               //headers: { 'Content-Type': 'application/json' }
             })
@@ -216,17 +276,17 @@ export default class Admin extends Page {
             if (!response.ok) {
               throw new Error( `${response.status} : ${response.statusText}` );
             }
-            return response;
+           // return response;
           })
           .then ( e => {
             alert(`La suppression est envoyée !`);
             // puis on vide le formulaire
-            const form:?HTMLElement = document.querySelector('form.supprimer');
+            const form:?HTMLElement = document.querySelector('form.moderer');
             if (form && form instanceof HTMLFormElement) {
               form.reset();
             }
           })
           .catch( error => alert(`Enregistrement impossible : ${error.message}`) );
         }
-      }*/
+      }
 }

@@ -7,13 +7,13 @@ import $ from 'jquery';
 export default class HomePage extends Page {
 	#data;
 
-	constructor( data:Array<{nom:string, heure:string, id:number, date:string}> ){
-		super( 'Les evenements à venir' );
+	constructor( data:Array<{nom:string, heure:string, heureFin:string, id:number, date:string, place:string, reservations:Array, prix:string, description:string}> ){
+		super( 'Les evenements à venir encore disponibles' );
 		this.attribute = {name:'class', value:'newsContainer'};
 		this.data = data;
 	}
 
-	set data(value:Array<{nom:string, heure:string, id:number, date:string}>):void {
+	set data(value:Array<{nom:string, heure:string, heureFin:string, id:number, date:string, place:string, reservations:Array, prix:string, description:string}>):void {
 		this.#data = value;
 		this.children = this.#data.map(evenements => new Evenement(evenements));
 	}
@@ -62,6 +62,7 @@ export default class HomePage extends Page {
 		console.log(document.cookie);
 		if(cc != "") {
 			if(cc == 'admin') {
+				alert('Vous êtes admin, impossible !');
 				// traitement post direction serveur creation reservation
 			}else {
 				// à modifier
@@ -73,12 +74,10 @@ export default class HomePage extends Page {
 					if (!response.ok) {
 						throw new Error( `${response.status} : ${response.statusText}` );
 					}
-					return response.json();
+					alert(`Reservation faite, merci !`);
+					//return response.json();
 				})
-				.then ( newReserv => {
-					alert(`Reservation faite !`);
-				})
-				//.catch( error => alert(`Enregistrement impossible : ${error.message}`) );
+				.catch( error => alert(`Enregistrement impossible`) );
 			}
 		}else {
 			alert('Veuillez vous connecter !');
