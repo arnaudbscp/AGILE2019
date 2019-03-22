@@ -28,7 +28,11 @@
 }*/
 
 .navbar-nav > li > a {
-    color: #0F828C !important;
+    color: #000614 !important;
+}
+
+.navbar-inverse .navbar-nav > .active > a {
+    background-color: #0F828C;
 }
 
 body{
@@ -46,5 +50,11 @@ h1{
 h2, h3, h4, h5, h6{
     font-family: "Somatic Rounded";
     color: #ED7212;
-    font-size: 12pt;
+    font-size: 16pt;
+}
+
+.Evenement ul > input {
+    color: white;
+    background-color: #0F828C;
+    border-radius: 10px;
 }
