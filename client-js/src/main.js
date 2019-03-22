@@ -6,7 +6,7 @@ import Connexion from './pages/Connexion.js';
 import PageRenderer from './PageRenderer.js';
 import $ from 'jquery';
 import Menu from './components/Menu.js';
-import Administration from './pages/Admin.js';
+import Admin from './pages/Admin.js';
 
 // configuration du PageRenderer
 PageRenderer.titleElement = document.querySelector('.pageTitle');
@@ -17,7 +17,7 @@ const homePage:HomePage = new HomePage([]);
 const addPizzaPage:AddPizzaPage = new AddPizzaPage();
 const inscriptionPage:Inscription = new Inscription();
 const connexion:Connexion = new Connexion();
-const administrationPage:Administration = new Administration();
+const administrationPage:Admin= new Admin();
 
 // configuration des liens du menu
 const menu:Menu = new Menu();
