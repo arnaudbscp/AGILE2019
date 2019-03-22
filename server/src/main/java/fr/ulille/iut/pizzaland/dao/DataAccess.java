@@ -3,6 +3,7 @@ package fr.ulille.iut.pizzaland.dao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -254,15 +255,18 @@ public class DataAccess {
 
     public List<EvenementEntity> getEventsByLogin(String login){
         List<EvenementEntity>  events = getAllEvents();
+        List<EvenementEntity> eventsToRemove = new ArrayList<EvenementEntity>();
         for(EvenementEntity event: events){
             if(event.getReservations()
                     .stream()
                     .map(e -> e.getLogin())
                     .filter(e -> e.equals(login))
-                    .toArray()[0] == null){
-                events.remove(event);
+                    .toArray()
+                    .length == 0){
+                eventsToRemove.add(event);
             }
         }
+        events.removeAll(eventsToRemove);
         return events;
     }
 }

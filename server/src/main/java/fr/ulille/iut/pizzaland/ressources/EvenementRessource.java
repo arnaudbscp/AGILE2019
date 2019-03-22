@@ -113,4 +113,14 @@ public class EvenementRessource {
             return Response.status(Response.Status.NOT_FOUND).entity("User not found\n").build();
         }
     }
+
+    @GET
+    @Path("/{login}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<EvenementDto> getEventsOfUser(@PathParam("login") String login){
+        DataAccess dataAccess = DataAccess.begin();
+        List<EvenementEntity> li = dataAccess.getEventsByLogin(login);
+        dataAccess.closeConnection(true);
+        return li.stream().map(EvenementEntity::convertToDto).collect(Collectors.toList());
+    }
 }
