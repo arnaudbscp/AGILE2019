@@ -115,6 +115,11 @@ public class EvenementEntity extends EvenementDto {
 
     public void setPrix(int prix){ this.prix = prix;}
 
+    @Basic
+    @Column(name="categorie", nullable = false, length = -1)
+    public String getCategorie(){return categorie;}
+
+    public void setCategorie(String categorie){this.categorie = categorie;}
 
     @Override
     public String toString() {

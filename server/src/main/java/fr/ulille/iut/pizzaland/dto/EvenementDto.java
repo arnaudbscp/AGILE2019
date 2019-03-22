@@ -15,6 +15,7 @@ public class EvenementDto{
     protected String description;
     protected int prix;
     protected long place;
+    protected String categorie;
     protected List<Long> inscrits;
 
     public static Logger getLogger() {
@@ -68,6 +69,14 @@ public class EvenementDto{
     public int getPrix() { return prix; }
 
     public void setPrix(int prix) { this.prix = prix; }
+
+    public String getCategorie() {
+        return categorie;
+    }
+
+    public void setCategorie(String categorie) {
+        this.categorie = categorie;
+    }
 
     public String toString() {
         return "Nom " + this.nom + " Date: " + this.date + " Heure: " + this.heure + " Places disponibles: " + this.place;
