@@ -1,6 +1,6 @@
 // @flow
 import HomePage from './pages/HomePage.js';
-import AddPizzaPage from './pages/AddPizzaPage.js';
+import Plus from './pages/Plus.js';
 import Inscription from './pages/InscriptionPage.js';
 import Connexion from './pages/Connexion.js';
 import PageRenderer from './PageRenderer.js';
@@ -14,7 +14,7 @@ PageRenderer.contentElement = document.querySelector('.newsContainer');
 
 // déclaration des différentes page de l'app
 const homePage:HomePage = new HomePage([]);
-const addPizzaPage:AddPizzaPage = new AddPizzaPage();
+const plus:Plus = new Plus();
 const inscriptionPage:Inscription = new Inscription();
 const connexion:Connexion = new Connexion();
 const administrationPage:Admin= new Admin();
@@ -23,7 +23,7 @@ const administrationPage:Admin= new Admin();
 const menu:Menu = new Menu();
 const logoLink = $('a.navbar-brand');
 const homeLink = $('.homeLink');
-const addPizzaLink = $('.addPizzaLink');
+const PlusLink = $('.PlusLink');
 const inscription = $('.inscriptionLink');
 const connexionLink = $('.connexionLink');
 const adminLink = $('.adminLink')
@@ -36,9 +36,9 @@ homeLink.click( (event:Event) => {
 	event.preventDefault();
 	renderHome();
 });
-addPizzaLink.click( (event:Event) => {
+PlusLink.click( (event:Event) => {
 	event.preventDefault();
-	renderAddPizza();
+	renderPlus();
 })
 inscription.click( (event:Event) => {
 	event.preventDefault();
@@ -57,9 +57,9 @@ function renderHome():void{
 	menu.setSelectedLink(homeLink);
 	PageRenderer.renderPage(homePage);
 }
-function renderAddPizza():void{
-	menu.setSelectedLink(addPizzaLink);
-	PageRenderer.renderPage(addPizzaPage);
+function renderPlus():void{
+	menu.setSelectedLink(PlusLink);
+	PageRenderer.renderPage(plus);
 }
 function renderInscription():void{
 	menu.setSelectedLink(inscription);

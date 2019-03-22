@@ -59,7 +59,9 @@ export default class Admin extends Page {
           <button type="submit" class="btn btn-primary mb-2">Supprimer</button>
           </form>
           `;
-      }else {
+      }else if(cc.length > 0 ) {
+        return "<h4>Mes prochains evenements :</h4><br/><form class='evenements'><button type=\"submit\" class=\"btn btn-primary mb-2\">Afficher</button></form>";
+      }else{
         return "vous n'avez pas les droits pour accéder à cette page";
       }
     }
@@ -67,6 +69,7 @@ export default class Admin extends Page {
         console.log("coucou");
         $('form.ajouter').submit( this.submit );
         $('form.supprimer').submit( this.submitdeux );
+        //$('.evenements').submit(this.submittrois);
       }
 
       submit(event:Event):void {
@@ -201,4 +204,29 @@ export default class Admin extends Page {
           .catch( error => alert(`Enregistrement impossible : ${error.message}`) );
         }
       }
+
+      /*submittrois(event:Event):void {
+        console.log("coucou");
+        event.preventDefault();
+        fetch( `/api/v1/events/${evenement.nomd}/${evenement.dated}/`, {
+              method:'DELETE',
+              //headers: { 'Content-Type': 'application/json' }
+            })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error( `${response.status} : ${response.statusText}` );
+            }
+            return response;
+          })
+          .then ( e => {
+            alert(`La suppression est envoyée !`);
+            // puis on vide le formulaire
+            const form:?HTMLElement = document.querySelector('form.supprimer');
+            if (form && form instanceof HTMLFormElement) {
+              form.reset();
+            }
+          })
+          .catch( error => alert(`Enregistrement impossible : ${error.message}`) );
+        }
+      }*/
 }
