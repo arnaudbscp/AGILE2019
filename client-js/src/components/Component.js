@@ -22,6 +22,20 @@ export default class Component {
 		}
 		return html;
 	}
+	renderTab():string{
+		let html:string = "<table class=\"table table-bordered\">";
+		html += `<${this.tagName} ${this.renderAttribute()}`;
+		if ( this.children ){
+			html += `>
+				${this.renderChildren()}
+			</${this.tagName}>`
+		}
+		else {
+			html += ` />`;
+		}
+		html += "</table>";
+		return html;
+	}
 	renderAttribute():string {
 		if ( this.attribute ){
 			return `${this.attribute.name}="${this.attribute.value}"`

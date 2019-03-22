@@ -3,8 +3,10 @@ import Component from './Component.js';
 import $ from 'jquery';
 
 export default class Evenement extends Component {
+	
 	constructor(evenement:{nom:string, heure:string, id:number, date:string}){
-		super('form', {name:'class', value:'Evenement'}, [
+		super('td', null, [
+			new Component('form', {name:'class', value:'Evenement'}, [
 				new Component('section', {name:'class', value: `${evenement.nom}`}, [
 					new Component('h4', null, evenement.nom),
 					new Component( 'ul', null, [
@@ -13,7 +15,8 @@ export default class Evenement extends Component {
                         new Component('input', {name:'type', value: "submit"})
 					])
 				])	
-        ]);
+			])
+		]);
     }
 
 }

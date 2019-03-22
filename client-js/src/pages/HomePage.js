@@ -11,26 +11,31 @@ export default class HomePage extends Page {
 		super( 'Les evenements à venir' );
 		this.attribute = {name:'class', value:'newsContainer'};
 		this.data = data;
+
 	}
 
 	set data(value:Array<{nom:string, heure:string, id:number, date:string}>):void {
 		this.#data = value;
 		this.children = this.#data.map(evenements => new Evenement(evenements));
+
 	}
 
 	mount(events:HTMLElement):void {
+
 		fetch( 'http://localhost:8080/api/v1/events', {
 			method:'GET',
 			headers: { 'Content-Type': 'application/json' },
 		})
 		.then( (response:Response) => response.json() )
 		.then( (data:any) => {
+				document.querySelector('.newsContainer').innerHTML="";
 				this.data = data;
-				events.innerHTML = this.render();
+				events.innerHTML += this.renderTab();
 				// $FlowFixMe
 				this.submit = this.submit.bind(this);
 				$('form.Evenement').submit( this.submit );
 				$('input').attr('value','Réserver');
+				
 		});
 	}
 
