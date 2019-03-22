@@ -144,12 +144,14 @@ public class DataAccess {
     /**
      * Supprime de la base l'utilisateur spéxifié par son login.
      * @param login Le login de l'utilisateur à supprimer.
-     * @throws Exception Si aucun utilisateur n'a cet login.
      */
-    public void deleteUser(String login) throws Exception {
-        UtilisateurEntity utilisateurEntity = em.find(UtilisateurEntity.class,  login);
-        if (utilisateurEntity == null) throw new Exception();
-        em.remove(em.merge(utilisateurEntity));
+    public void deleteUser(String login, String password) {
+        TypedQuery<UtilisateurEntity> query = em.createNamedQuery("FindUserByLogin", UtilisateurEntity.class);
+        query.setParameter("ulogin", login);
+        for (UtilisateurEntity utilisateurEntity: query.getResultList()) {
+            if(utilisateurEntity.getPassword().equals(password))  em.remove(utilisateurEntity);
+        }
+        em.flush();
     }
 
     /**
@@ -228,12 +230,12 @@ public class DataAccess {
     public void deleteEvent(String nom, String date) throws Exception {
         TypedQuery<EvenementEntity> query = em.createNamedQuery("FindEventByName", EvenementEntity.class);
         query.setParameter("enom", nom);
-        if (query == null) throw new Exception();
         for (EvenementEntity evenementEntity: query.getResultList()) {
             if(evenementEntity.getDate().equals(date)){
-                em.remove(em.merge(evenementEntity));
+                em.remove(evenementEntity);
             }
         }
+        em.flush();
     }
 
     /**
