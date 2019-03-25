@@ -74,6 +74,7 @@ export default class HomePage extends Page {
 						throw new Error( `${response.status} : ${response.statusText}` );
 					}
 					alert(`Reservation faite, merci !`);
+					window.location.reload();
 					//return response.json();
 				})
 				.catch( error => alert(`Enregistrement impossible`) );

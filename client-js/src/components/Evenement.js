@@ -20,9 +20,9 @@ export default class Evenement extends Component {
 			new Component('form', {name:'class', value:'Evenement'}, [
 				new Component('section', {name:'class', value: `${evenement.nom}`}, [
 					new Component('h2', null, evenement.nom),
-					new Component('h3', null, evenement.categorie),
 					new Component('img', {name:`style="width:80px;height:80px" src`, value:Evenement.getImg(evenement.categorie), alt:`bonjour`}, ``),
 					new Component( 'ul', null, [
+						new Component('p', null, `Catégorie : ${evenement.categorie}`),
 						new Component('p', null, `Date : ${evenement.date}`),
 						new Component('p', null, `Créneau : ${evenement.heure} à ${evenement.heureFin}`),
 						new Component('p', null, `Places : ${evenement.reservations.length}/${evenement.place}`),

@@ -9,7 +9,15 @@ export default class Admin extends Page {
   constructor( ){
 		super( 'Administration' );
   }
-  
+  mount(container:HTMLElement):void {
+    $('form.ajouter').submit( this.submit );
+    $('form.supprimer').submit( this.submitdeux );
+    $('form.moderer').submit( this.submittrois );
+    $('form.evenements').submit( this.submitq );
+    $('form.deconnexion').submit( this.deco );
+    $('form.supprimerCompte').submit( this.supprimer );
+  }
+
    render():string {
     let cc = "";
     var name = "username" + "=";
@@ -28,6 +36,14 @@ export default class Admin extends Page {
       if(cc == 'admin') {
           return `
           <form class="ajouter">
+          <div class="form-group">
+          <label for="exampleFormControlSelect1">Catégories</label><br/>
+          <input type="radio" name="categorie" value="Cours" checked>Cours<br/>
+          <input type="radio" name="categorie" value="Tapisserie">Tapisserie<br/>
+          <input type="radio" name="categorie" value="Stage">Stage<br/>
+          <input type="radio" name="categorie" value="Atelier thematique">Atelier thematique<br/>
+          <input type="radio" name="categorie" value="Location d\`outils">Location d\`outils
+          </div>
           <div class="form-group">
           <label for="exampleFormControlInput1">Titre evenement</label>
           <input type="text" class="form-control" id="exampleFormControlInput1" name="nom" placeholder="Titre">
@@ -54,7 +70,7 @@ export default class Admin extends Page {
           </div>
           <div class="form-group">
           <label for="exampleFormControlTextarea1">Description</label>
-          <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
+          <input type=text class="form-control" name="description" id="exampleFormControlTextarea1" rows="3"></textarea>
           </div>
           <button type="submit" class="btn btn-primary mb-2">Créer</button>
           </form>
@@ -78,15 +94,20 @@ export default class Admin extends Page {
           </div>
           <button type="submit" class="btn btn-primary mb-2">Supprimer</button>
           </form>
+          <br/>
+          <form class=deconnexion ><button type="submit" class="btn btn-primary mb-2">Se déconnecter</button></form>
           `;
-      }else if(!cc.length > 0){
-        return "vous n'avez pas les droits pour accéder à cette page";
+      }else if(cc.length > 0){
+        return '<br/><form class=evenements ><button type="submit" class="btn btn-primary mb-2">Afficher mes evenements en cours</button></form><hr class="my-4"><form class=deconnexion ><button type="submit" class="btn btn-primary mb-2">Se déconnecter</button></form><hr class="my-4"><form class=deconnexion ></form><form class="supprimerCompte"><button type="submit" class="btn btn-primary mb-2">Supprimer le compte</button></form>';
+      }else {
+        return "Vous n'avez pas les droits pour accéder à cette page. Il faut vous connecter !";
       }
     }
 
       submit(event:Event):void {
         event.preventDefault();
         const fieldNames:Array<string> = [
+          'categorie',
           'date',
           'description',
           'heure',
@@ -126,6 +147,7 @@ export default class Admin extends Page {
         } else {
           // si il n'y a pas d'erreur on envoie les données
           const evenement = {
+            categorie: values.categorie,
             date: values.date,
             description: values.description,
             heure: values.heure,
@@ -153,6 +175,7 @@ export default class Admin extends Page {
             if (form && form instanceof HTMLFormElement) {
               form.reset();
             }
+            window.location.reload();
           })
           .catch( error => alert(`Enregistrement impossible : ${error.message}`) );
         }
@@ -216,6 +239,7 @@ export default class Admin extends Page {
             if (form && form instanceof HTMLFormElement) {
               form.reset();
             }
+            window.location.reload();
           })
           .catch( error => alert(`Enregistrement impossible : ${error.message}`) );
         }
@@ -277,26 +301,103 @@ export default class Admin extends Page {
             if (form && form instanceof HTMLFormElement) {
               form.reset();
             }
+            window.location.reload();
           })
           .catch( error => alert(`Enregistrement impossible : ${error.message}`) );
         }
       }
 
-      mount(container:HTMLElement):void {
-        console.log("coucou");
-        $('form.ajouter').submit( this.submit );
-        $('form.supprimer').submit( this.submitdeux );
-        $('form.moderer').submit( this.submittrois );
-        fetch( 'http://localhost:8080/api/v1/events/axel/', {
+      deco(event:Event):void {
+        let cc = "";
+        event.preventDefault();
+        var name = "username" + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        console.log(document.cookie);
+        for(var i = 0; i <ca.length; i++) {
+          var ccc = ca[i];
+          while (ccc.charAt(0) == ' ') {
+                ccc = ccc.substring(1);
+          }
+          if (ccc.indexOf(name) == 0) {
+                cc = ccc.substring(name.length, ccc.length);
+          }
+        }
+        var d = new Date;
+        d.setTime(d.getTime()+(-1*24*60*60*1000));
+        document.cookie = "username" + "=" + `${cc}` + ";path=/;expires=" + d.toGMTString();
+        alert('Vous êtes deconnecté.');
+        window.location.reload();
+      }
+
+      submitq(event:Event):void {
+        let cc = "";
+        event.preventDefault();
+        var name = "username" + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        console.log(document.cookie);
+        for(var i = 0; i <ca.length; i++) {
+          var ccc = ca[i];
+          while (ccc.charAt(0) == ' ') {
+                ccc = ccc.substring(1);
+          }
+          if (ccc.indexOf(name) == 0) {
+                cc = ccc.substring(name.length, ccc.length);
+          }
+        }
+        fetch( `http://localhost:8080/api/v1/events/${cc}`, {
           method:'GET',
           headers: { 'Content-Type': 'application/json' },
         })
-          .then( (response:Response) => response.json() )
-          .then( (data:any) => {
+        .then( (response:Response) => response.json() )
+        .then( (data:any) => {
             document.querySelector('.newsContainer').innerHTML="";
             this.data = data;
-            console.log(data);
+            for(var j = 0; j < data.length; j++) {
+              document.querySelector('.newsContainer').innerHTML += `<ul><li><b>${data[j].categorie} - ${data[j].nom}</b> le ${data[j].date}, de ${data[j].heure} à ${data[j].heureFin}. </li></ul>`;
+            }
         });
       }
+
+      supprimer(event:Event):void {
+        let cc = "";
+        event.preventDefault();
+        var name = "username" + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var ccc = ca[i];
+          while (ccc.charAt(0) == ' ') {
+                ccc = ccc.substring(1);
+          }
+          if (ccc.indexOf(name) == 0) {
+                cc = ccc.substring(name.length, ccc.length);
+          }
+        }
+        let nom = cc;
+        var d = new Date;
+        d.setTime(d.getTime()+(-1*24*60*60*1000));
+        document.cookie = "username" + "=" + `${cc}` + ";path=/;expires=" + d.toGMTString();
+        fetch( `http://localhost:8080/api/v1/users/${nom}`, {
+          method:'DELETE',
+          headers: { 'Content-Type': 'application/json' },
+        })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error( `${response.status} : ${response.statusText}` );
+          }
+         // return response;
+        })
+        .then ( e => {
+          alert(`La suppression est envoyée !`);
+          // puis on vide le formulaire
+          window.location.reload();
+          
+        })
+        .catch( error => alert(`Enregistrement impossible : ${error.message}`) );
+      }
+      
+
 
 }
