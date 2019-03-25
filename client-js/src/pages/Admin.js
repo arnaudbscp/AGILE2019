@@ -16,6 +16,7 @@ export default class Admin extends Page {
     $('form.evenements').submit( this.submitq );
     $('form.deconnexion').submit( this.deco );
     $('form.supprimerCompte').submit( this.supprimer );
+    $('form.afficherUsers').submit( this.afficher );
   }
 
    render():string {
@@ -94,7 +95,10 @@ export default class Admin extends Page {
           </div>
           <button type="submit" class="btn btn-primary mb-2">Supprimer</button>
           </form>
-          <br/>
+          <hr class="my-4">
+          <p class="personnes"></p>
+          <form class=afficherUsers ><button type="submit" class="btn btn-primary mb-2">Afficher les utilisateurs</button></form>
+          <hr class="my-4">
           <form class=deconnexion ><button type="submit" class="btn btn-primary mb-2">Se déconnecter</button></form>
           `;
       }else if(cc.length > 0){
@@ -360,7 +364,23 @@ export default class Admin extends Page {
         });
       }
 
+      afficher(event:Event):void {
+        event.preventDefault();
+        fetch( `http://localhost:8080/api/v1/users`, {
+          method:'GET',
+          headers: { 'Content-Type': 'application/json' },
+        })
+        .then( (response:Response) => response.json() )
+        .then( (data:any) => {
+            this.data = data;
+            for(var j = 0; j < data.length; j++) {
+              document.querySelector('.afficherUsers').innerHTML += `<ul><li><b>${data[j].login} </b></li></ul>`;
+            }
+        });
+      }
+
       supprimer(event:Event):void {
+        if(confirm("Etes vous sur de vouloir supprimer votre compte ?")) {
         let cc = "";
         event.preventDefault();
         var name = "username" + "=";
@@ -397,7 +417,7 @@ export default class Admin extends Page {
         })
         .catch( error => alert(`Enregistrement impossible : ${error.message}`) );
       }
-      
+    }
 
 
 }
