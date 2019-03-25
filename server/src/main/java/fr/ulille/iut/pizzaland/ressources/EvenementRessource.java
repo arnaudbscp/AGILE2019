@@ -110,7 +110,6 @@ public class EvenementRessource {
         try {
             ee.getReservations().add(dataAccess.getUserByLogin(login));
             dataAccess.updateEvent(ee);
-            dataAccess.closeConnection(true);
             String TO_EMAIL = dataAccess.getUserByLogin(login).getEmail();
             EvenementEntity evenementEntity = null;
             for (EvenementEntity evenementEntity1 : dataAccess.getEventsByLogin(login)) {
@@ -119,13 +118,14 @@ public class EvenementRessource {
                 }
             }
             System.out.println("TO EMAIL: " + TO_EMAIL);
-            SendMail sendMail = new SendMail(new Email(FROM_EMAIL), "Evenement à venir", new Email("dacruzaxel21@gmail.com"), new Content());
-            if(sendMail.sendMail("Félicitations ! Vous venez de vous inscrire au cours " + nom + ". Le " + evenementEntity.getDate() + " à " + evenementEntity.getHeure() + "jusque " + evenementEntity.getHeureFin() + ", au prix de " + evenementEntity.getPrix() + ". Je vous attendrai !")) {
+            SendMail sendMail = new SendMail(new Email(FROM_EMAIL), "Evenement à venir", new Email(TO_EMAIL), new Content());
+            if(sendMail.sendMail("Félicitations ! Vous venez de vous inscrire au cours " + nom + ". Le " + evenementEntity.getDate() + " à " + evenementEntity.getHeure() + " jusque " + evenementEntity.getHeureFin() + ", au prix de " + evenementEntity.getPrix() + ". Je vous attendrai !")) {
                 System.out.println("MAIL IS SEND TO " + TO_EMAIL);
             }
             else {
                 System.out.println("MAIL NOT SEND");
             }
+            dataAccess.closeConnection(true);
             return Response.status(Response.Status.NO_CONTENT).build();
         } catch (Exception e) {
             dataAccess.closeConnection(false);
