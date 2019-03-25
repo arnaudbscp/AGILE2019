@@ -28,7 +28,7 @@ export default class InscriptionPage extends Page {
       <div class="form-row">
         <div class="col-md-6 mb-3">
           <label for="validationDefault03">Mot de passe</label>
-          <input type="text" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
         </div>
       <div class="form-group">
         <div class="form-check">
