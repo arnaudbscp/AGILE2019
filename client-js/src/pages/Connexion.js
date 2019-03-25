@@ -12,7 +12,7 @@ export default class Connexion extends Page {
 	render():string {
         return `<form class="Connexion">
         <div class="form-group">
-          <label for="exampleInputEmail1">Login</label>
+          <label for="exampleInputEmail1">Adresse e-mail</label>
           <input type="text" name='login' class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
           <small id="emailHelp" class="form-text text-muted">Attention : Vous ne devrez jamais partager votre e-mail avec quelqu'un d'autre.</small>
         </div>
