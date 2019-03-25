@@ -13430,6 +13430,7 @@ function (_Page) {
       jquery__WEBPACK_IMPORTED_MODULE_4___default()('form.evenements').submit(this.submitq);
       jquery__WEBPACK_IMPORTED_MODULE_4___default()('form.deconnexion').submit(this.deco);
       jquery__WEBPACK_IMPORTED_MODULE_4___default()('form.supprimerCompte').submit(this.supprimer);
+      jquery__WEBPACK_IMPORTED_MODULE_4___default()('form.afficherUsers').submit(this.afficher);
     }
   }, {
     key: "render",
@@ -13453,7 +13454,7 @@ function (_Page) {
       }
 
       if (cc == 'admin') {
-        return "\n          <form class=\"ajouter\">\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlSelect1\">Cat\xE9gories</label><br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Cours\" checked>Cours<br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Tapisserie\">Tapisserie<br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Stage\">Stage<br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Atelier thematique\">Atelier thematique<br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Location d`outils\">Location d`outils\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Titre evenement</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"nom\" placeholder=\"Titre\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Date aaaa-mm-jj</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"date\" placeholder=\"2019-04-22\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Nombre de places disponibles</label>\n          <input type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"place\" placeholder=\"5\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Prix</label>\n          <input type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"prix\" placeholder=\"45\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Heure de d\xE9part</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"heure\" placeholder=\"10:30:00\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Heure de fin</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"heureFin\" placeholder=\"12:30:00\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlTextarea1\">Description</label>\n          <input type=text class=\"form-control\" name=\"description\" id=\"exampleFormControlTextarea1\" rows=\"3\"></textarea>\n          </div>\n          <button type=\"submit\" class=\"btn btn-primary mb-2\">Cr\xE9er</button>\n          </form>\n          <hr class=\"my-4\">\n          <form class=\"supprimer\">\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Titre evenement</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"nomd\" placeholder=\"Titre de l'article \xE0 supprimer\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Jour de l'evenement</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"dated\" placeholder=\"2019-04-22\">\n          </div>\n          <button type=\"submit\" class=\"btn btn-primary mb-2\">Supprimer</button>\n          </form>\n          <hr class=\"my-4\">\n          <form class=\"moderer\">\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Login utilisateur \xE0 supprimer</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"nomt\" placeholder=\"bernard\">\n          </div>\n          <button type=\"submit\" class=\"btn btn-primary mb-2\">Supprimer</button>\n          </form>\n          <br/>\n          <form class=deconnexion ><button type=\"submit\" class=\"btn btn-primary mb-2\">Se d\xE9connecter</button></form>\n          ";
+        return "\n          <form class=\"ajouter\">\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlSelect1\">Cat\xE9gories</label><br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Cours\" checked>Cours<br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Tapisserie\">Tapisserie<br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Stage\">Stage<br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Atelier thematique\">Atelier thematique<br/>\n          <input type=\"radio\" name=\"categorie\" value=\"Location d`outils\">Location d`outils\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Titre evenement</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"nom\" placeholder=\"Titre\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Date aaaa-mm-jj</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"date\" placeholder=\"2019-04-22\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Nombre de places disponibles</label>\n          <input type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"place\" placeholder=\"5\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Prix</label>\n          <input type=\"number\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"prix\" placeholder=\"45\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Heure de d\xE9part</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"heure\" placeholder=\"10:30:00\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Heure de fin</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"heureFin\" placeholder=\"12:30:00\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlTextarea1\">Description</label>\n          <input type=text class=\"form-control\" name=\"description\" id=\"exampleFormControlTextarea1\" rows=\"3\"></textarea>\n          </div>\n          <button type=\"submit\" class=\"btn btn-primary mb-2\">Cr\xE9er</button>\n          </form>\n          <hr class=\"my-4\">\n          <form class=\"supprimer\">\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Titre evenement</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"nomd\" placeholder=\"Titre de l'article \xE0 supprimer\">\n          </div>\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Jour de l'evenement</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"dated\" placeholder=\"2019-04-22\">\n          </div>\n          <button type=\"submit\" class=\"btn btn-primary mb-2\">Supprimer</button>\n          </form>\n          <hr class=\"my-4\">\n          <form class=\"moderer\">\n          <div class=\"form-group\">\n          <label for=\"exampleFormControlInput1\">Login utilisateur \xE0 supprimer</label>\n          <input type=\"text\" class=\"form-control\" id=\"exampleFormControlInput1\" name=\"nomt\" placeholder=\"bernard\">\n          </div>\n          <button type=\"submit\" class=\"btn btn-primary mb-2\">Supprimer</button>\n          </form>\n          <hr class=\"my-4\">\n          <p class=\"personnes\"></p>\n          <form class=afficherUsers ><button type=\"submit\" class=\"btn btn-primary mb-2\">Afficher les utilisateurs</button></form>\n          <hr class=\"my-4\">\n          <form class=deconnexion ><button type=\"submit\" class=\"btn btn-primary mb-2\">Se d\xE9connecter</button></form>\n          ";
       } else if (cc.length > 0) {
         return '<br/><form class=evenements ><button type="submit" class="btn btn-primary mb-2">Afficher mes evenements en cours</button></form><hr class="my-4"><form class=deconnexion ><button type="submit" class="btn btn-primary mb-2">Se déconnecter</button></form><hr class="my-4"><form class=deconnexion ></form><form class="supprimerCompte"><button type="submit" class="btn btn-primary mb-2">Supprimer le compte</button></form>';
       } else {
@@ -13737,47 +13738,70 @@ function (_Page) {
       });
     }
   }, {
-    key: "supprimer",
-    value: function supprimer(event) {
-      var cc = "";
+    key: "afficher",
+    value: function afficher(event) {
+      var _this2 = this;
+
       event.preventDefault();
-      var name = "username" + "=";
-      var decodedCookie = decodeURIComponent(document.cookie);
-      var ca = decodedCookie.split(';');
-
-      for (var i = 0; i < ca.length; i++) {
-        var ccc = ca[i];
-
-        while (ccc.charAt(0) == ' ') {
-          ccc = ccc.substring(1);
-        }
-
-        if (ccc.indexOf(name) == 0) {
-          cc = ccc.substring(name.length, ccc.length);
-        }
-      }
-
-      var nom = cc;
-      var d = new Date();
-      d.setTime(d.getTime() + -1 * 24 * 60 * 60 * 1000);
-      document.cookie = "username" + "=" + "".concat(cc) + ";path=/;expires=" + d.toGMTString();
-      fetch("http://localhost:8080/api/v1/users/".concat(nom), {
-        method: 'DELETE',
+      fetch("http://localhost:8080/api/v1/users", {
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         }
       }).then(function (response) {
-        if (!response.ok) {
-          throw new Error("".concat(response.status, " : ").concat(response.statusText));
-        } // return response;
+        return response.json();
+      }).then(function (data) {
+        _this2.data = data;
 
-      }).then(function (e) {
-        alert("La suppression est envoy\xE9e !"); // puis on vide le formulaire
-
-        window.location.reload();
-      }).catch(function (error) {
-        return alert("Enregistrement impossible : ".concat(error.message));
+        for (var j = 0; j < data.length; j++) {
+          document.querySelector('.afficherUsers').innerHTML += "<ul><li><b>".concat(data[j].login, " </b></li></ul>");
+        }
       });
+    }
+  }, {
+    key: "supprimer",
+    value: function supprimer(event) {
+      if (confirm("Etes vous sur de vouloir supprimer votre compte ?")) {
+        var cc = "";
+        event.preventDefault();
+        var name = "username" + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+
+        for (var i = 0; i < ca.length; i++) {
+          var ccc = ca[i];
+
+          while (ccc.charAt(0) == ' ') {
+            ccc = ccc.substring(1);
+          }
+
+          if (ccc.indexOf(name) == 0) {
+            cc = ccc.substring(name.length, ccc.length);
+          }
+        }
+
+        var nom = cc;
+        var d = new Date();
+        d.setTime(d.getTime() + -1 * 24 * 60 * 60 * 1000);
+        document.cookie = "username" + "=" + "".concat(cc) + ";path=/;expires=" + d.toGMTString();
+        fetch("http://localhost:8080/api/v1/users/".concat(nom), {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(function (response) {
+          if (!response.ok) {
+            throw new Error("".concat(response.status, " : ").concat(response.statusText));
+          } // return response;
+
+        }).then(function (e) {
+          alert("La suppression est envoy\xE9e !"); // puis on vide le formulaire
+
+          window.location.reload();
+        }).catch(function (error) {
+          return alert("Enregistrement impossible : ".concat(error.message));
+        });
+      }
     }
   }]);
 
@@ -14194,7 +14218,7 @@ function (_Page) {
   _createClass(InscriptionPage, [{
     key: "render",
     value: function render() {
-      return "<form class=\"InscriptionPage\">\n        <div class=\"form-row\">\n        <div class=\"col-md-4 mb-3\">\n          <label for=\"validationDefault01\">Login Utilisateur</label>\n          <input type=\"text\" class=\"form-control\" id=\"login\" name=\"login\" placeholder=\"First name\" value=\"Mark\" required>\n        </div>\n        <div class=\"col-md-4 mb-3\">\n          <label for=\"validationDefaultUsername\">E-mail de connexion</label>\n          <div class=\"input-group\">\n            <input type=\"text\" class=\"form-control\" id=\"email\" name=\"email\" placeholder=\"Votre e-mail\" aria-describedby=\"inputGroupPrepend2\" required>\n          </div>\n        </div>\n      </div>\n      <div class=\"form-row\">\n        <div class=\"col-md-6 mb-3\">\n          <label for=\"validationDefault03\">Mot de passe</label>\n          <input type=\"text\" class=\"form-control\" id=\"password\" name=\"password\" placeholder=\"Mot de passe\" required>\n        </div>\n      <div class=\"form-group\">\n        <div class=\"form-check\">\n          <input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"invalidCheck2\" required>\n          <label class=\"form-check-label\" for=\"invalidCheck2\">\n            J'accepte les conditions d'utilisation\n          </label>\n        </div>\n      </div>\n\t\t<button type=\"submit\" class=\"btn btn-default\">Inscription</button>\n\t</form>";
+      return "<form class=\"InscriptionPage\">\n        <div class=\"form-row\">\n        <div class=\"col-md-6 mb-2\">\n      <label for=\"validationTooltip01\">Nom</label>\n      <input type=\"text\" class=\"form-control\" name=\"nom\" id=\"validationTooltip01\" placeholder=\"Nom\" required>\n\t\t\t</div>\n\t\t\t<div class=\"col-md-6 mb-2\">\n\t\t\t\t<label for=\"validationTooltip02\">Pr\xE9nom</label>\n\t\t\t\t<input type=\"text\" class=\"form-control\" name=\"prenom\" id=\"validationTooltip03\" placeholder=\"Pr\xE9nom\" required>\n\t\t\t</div>\n\t\t\t</div>\n\t\t\t<input type=\"hidden\" class=\"login\" name=\"login\" id=\"validationTooltip04\" placeholder=\"login\">\n      <div class=\"form-row\">\n        <div class=\"col-md-6 mb-2\">\n          <label for=\"validationDefault03\">Mot de passe</label>\n          <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" placeholder=\"Mot de passe\" required>\n\t\t\t\t</div>\n\t\t\t\t<div class=\"col-md-6 mb-2\">\n\t\t\t\t\t<label for=\"validationDefaultUsername\">E-mail de connexion</label>\n\t\t\t\t\t<input type=\"text\" class=\"form-control\" id=\"email\" name=\"email\" placeholder=\"Votre e-mail\" aria-describedby=\"inputGroupPrepend2\" required>\n\t\t\t\t</div>\n\t\t\t<hr class=\"my-4\">\n      <div class=\"form-group\">\n        <div class=\"form-check\">\n          <input class=\"form-check-input\" type=\"checkbox\" value=\"\" id=\"invalidCheck2\" required>\n          <label class=\"form-check-label\" for=\"invalidCheck2\">\n            J'accepte les conditions d'utilisation\n          </label>\n        </div>\n      </div>\n\t\t<button type=\"submit\" class=\"btn btn-default\">Inscription</button>\n\t</form>";
     }
   }, {
     key: "mount",
@@ -14213,6 +14237,8 @@ function (_Page) {
       var errors = [];
       fieldNames.forEach(function (fieldName) {
         var value = _this2.getFieldValue(fieldName);
+
+        if (fieldName == "login") value = _this2.getFieldValue("prenom") + "_" + _this2.getFieldValue("nom").substring(0, 1);
 
         if (!value) {
           errors.push("Le champ ".concat(fieldName, " ne peut pas \xEAtre vide !"));

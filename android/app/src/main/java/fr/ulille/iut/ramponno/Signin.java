@@ -46,7 +46,7 @@ public class Signin extends AppCompatActivity {
     }
     public void inscription(String mail, String login, String pass) {
         Log.d(base.LOG_TAG, "Send started");
-        final String uri = "http://10.0.2.2:8080/api/v1/users";
+        final String uri = "http://"+Data.adresse+"/api/v1/users";
         Log.d(base.LOG_TAG, "Uri: " + uri);
 
         JSONObject jsonRequest;

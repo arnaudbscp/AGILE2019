@@ -29,15 +29,33 @@
         <activity
             android:name=".Signin"
             android:screenOrientation="portrait" />
+        <!--
+            <activity
+            android:name=".Details"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        -->
+        <activity
+            android:name=".Admin"
+            android:label="Ajout/suppression d\&apos;évenement"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!--
+                    <activity
+                    android:name=".MesInscriptions"
+                    android:label="Ajout/suppression d\&apos;évenement" />
+        -->
         <activity
             android:name=".Agenda"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_activity_agenda"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Details"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_activity_details"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".tmpLogin"
-            android:label="@string/title_activity_tmp_login"></activity>
+            android:name=".MesInscriptions"
+            android:label="@string/title_activity_mes_inscriptions"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

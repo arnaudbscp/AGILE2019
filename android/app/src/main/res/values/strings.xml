@@ -170,5 +170,24 @@
     <string name="error_incorrect_password">Le mot de passe saisi est incorrect</string>
     <string name="error_field_required">Ce champs est requis</string>
     <string name="error_unknown_mail">Ce mail est inconnu</string>
+    <string name="title_activity_drawer_exemple">drawerExemple</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Ramponno Tapisserie</string>
+    <string name="nav_header_subtitle">mail?</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Stings Used for descriptions -->
+
+    <string name="desc_cours">Cours</string>
+    <string name="desc_outil">Outil</string>
+    <string name="desc_stage">Stage</string>
+    <string name="desc_alelier">Atelier</string>
+    <string name="desc_tapisserie">Jeudi tapisserie</string>
+    <string name="title_activity_agenda">Agenda</string>
+    <string name="title_activity_admin">Admin</string>
+    <string name="title_activity_details">Details</string>
+    <string name="title_activity_mes_inscriptions">MesInscriptions</string>
 
 </resources>

@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
     public void openSigninActivity(View view){
-        Intent intent = new Intent(this, tmpLogin.class);
+        Intent intent = new Intent(this, Signin.class);
         startActivity(intent);
     }
 
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void connectTask() {
         Log.d(base.LOG_TAG, "Send started");
-        String uri = "http://10.0.2.2:8080/api/v1/users";
+        String uri = "http://"+Data.adresse+"/api/v1/users";
         Log.d(base.LOG_TAG, "Uri: " + uri);
 
         JsonArrayRequest arrayRequest = new JsonArrayRequest(
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                             passField.setError(getString(R.string.error_incorrect_password));
                         }else{
                             Intent intent = new Intent(MainActivity.this, Agenda.class);
-                            intent.putExtra("mail",retour);
+                            intent.putExtra("login",retour);
                             startActivity(intent);
                         }
 
@@ -156,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mailVerif.equals(enteredMail)){
                     mailFound = true;
                     if (passVerif.equals(enteredPass)){
-                        return enteredMail;
+                        return (data[2].substring(data[2].indexOf(":")+1));
                     }
                 }
             } catch (JSONException e) {
@@ -251,4 +251,6 @@ public class MainActivity extends AppCompatActivity {
             progressView.setVisibility(show ? View.VISIBLE : View.GONE);
         }
     }*/
+
+
 }

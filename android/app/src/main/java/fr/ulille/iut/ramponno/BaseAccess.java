@@ -26,7 +26,7 @@ public class BaseAccess {
     public static final String VOLLEY_TAG = "TEST_RAMPONNO+-";
     public static final String LOG_TAG = "APPLI";
     private String getFullHostname() {
-        return "http://localhost:8080/api/v1/";
+        return "http://"+Data.adresse+"/api/v1/";
     }
     protected RequestQueue queue;
     Context context;

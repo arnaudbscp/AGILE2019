@@ -39,7 +39,7 @@ public class MyListAdapter extends ArrayAdapter<Item> {
         //il ne reste plus qu'à remplir notre vue
         viewHolder.pseudo.setText(item.getPseudo());
         viewHolder.text.setText(item.getText());
-        viewHolder.avatar.setImageDrawable(new ColorDrawable(item.getColor()));
+        viewHolder.avatar.setImageResource(item.getColor());
 
         return convertView;
     }
