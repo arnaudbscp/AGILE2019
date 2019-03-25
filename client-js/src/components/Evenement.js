@@ -4,12 +4,24 @@ import $ from 'jquery';
 
 export default class Evenement extends Component {
 	
+	static getImg(categorie:String):String{
+		switch(categorie){
+			case "Location d`outils": return "../assets/outils.png";
+			case "Cours": return "../assets/cours.png";
+			case "Atelier thematique": return "../assets/atelier.png";
+			case "Stage": return "../assets/stage.png";
+			case "Tapisserie": return "../assets/tapisserie.png";
+			default: return "../assets/tapisserie.png";
+		}
+	}
+
 	constructor(evenement:{nom:string, categorie:string, heure:string, heureFin:string, id:number, date:string, place:string, reservations:Array, prix:string, description:string}){
 		super('td', null, [
 			new Component('form', {name:'class', value:'Evenement'}, [
 				new Component('section', {name:'class', value: `${evenement.nom}`}, [
 					new Component('h2', null, evenement.nom),
 					new Component('h3', null, evenement.categorie),
+					new Component('img', {name:`style="width:80px;height:80px" src`, value:Evenement.getImg(evenement.categorie), alt:`bonjour`}, ``),
 					new Component( 'ul', null, [
 						new Component('p', null, `Date : ${evenement.date}`),
 						new Component('p', null, `Créneau : ${evenement.heure} à ${evenement.heureFin}`),
@@ -21,6 +33,6 @@ export default class Evenement extends Component {
 				])	
 			])
 		]);
-    }
+		}
 
 }
