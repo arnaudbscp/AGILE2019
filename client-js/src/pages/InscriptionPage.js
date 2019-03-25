@@ -8,6 +8,7 @@ export default class InscriptionPage extends Page {
 		super('S\'inscrire');
 		// $FlowFixMe
 		this.submit = this.submit.bind(this);
+
 	}
 
 	render():string {
@@ -75,7 +76,7 @@ export default class InscriptionPage extends Page {
 		fieldNames.forEach( (fieldName:string) => {
 			const value = this.getFieldValue(fieldName);
 			if ( !value ){
-				errors.push( `Le champ ${fieldName} ne peut être vide !` );
+				errors.push( `Le champ ${fieldName} ne peut pas être vide !` );
 			}
 			values[fieldName] = value;
 		});

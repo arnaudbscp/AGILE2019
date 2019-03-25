@@ -7,13 +7,13 @@ import $ from 'jquery';
 export default class HomePage extends Page {
 	#data;
 
-	constructor( data:Array<{nom:string, heure:string, heureFin:string, id:number, date:string, place:string, reservations:Array, prix:string, description:string}> ){
+	constructor( data:Array<{nom:string, categorie:string, heure:string, heureFin:string, id:number, date:string, place:string, reservations:Array, prix:string, description:string}> ){
 		super( 'Les evenements à venir encore disponibles' );
 		this.attribute = {name:'class', value:'newsContainer'};
 		this.data = data;
 	}
 
-	set data(value:Array<{nom:string, heure:string, heureFin:string, id:number, date:string, place:string, reservations:Array, prix:string, description:string}>):void {
+	set data(value:Array<{nom:string, categorie:string, heure:string, heureFin:string, id:number, date:string, place:string, reservations:Array, prix:string, description:string}>):void {
 		this.#data = value;
 		this.children = this.#data.map(evenements => new Evenement(evenements));
 	}
