@@ -97,6 +97,10 @@ export default class Connexion extends Page {
 					alert(`L'admin "${utilisateur.login}" s'est connecté avec succès`);		
 					document.cookie = `username=admin;`;
 					p = 0;
+					window.location.reload();
+					document.querySelector("li:nth-child(2)").innerHTML = "";
+					document.querySelector("li:nth-child(3)").innerHTML = "";
+					console.log(document.querySelector("ul:first-child").innerHTML);
 				}else {
 					alert(`Mauvaise connexion`);
 				}

@@ -28,6 +28,21 @@ const inscription = $('.inscriptionLink');
 const connexionLink = $('.connexionLink');
 const adminLink = $('.adminLink')
 
+function getCookie(cname) {
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i = 0; i < ca.length; i++) {
+	  var c = ca[i];
+	  while (c.charAt(0) == ' ') {
+		c = c.substring(1);
+	  }
+	  if (c.indexOf(name) == 0) {
+		return c.substring(name.length, c.length);
+	  }
+	}
+	return "";
+  }
+
 logoLink.click( (event:Event) => {
 	event.preventDefault();
 	renderHome();
@@ -76,3 +91,7 @@ function renderConnexion():void{
 // lorsqu'on arrive sur l'appli, par défaut
 // on affiche la page d'accueil
 renderHome();
+if(getCookie("username") !== ""){
+	document.querySelector("li:nth-child(2)").innerHTML = "";
+	document.querySelector("li:nth-child(3)").innerHTML = "";
+}
