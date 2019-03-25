@@ -1,11 +1,15 @@
+// @flow
+import Component from '../components/Component.js';
+import Evenement from '../components/Evenement.js';
+import HomePage from './HomePage.js';
 import Page from './Page.js';
 import $ from 'jquery';
 
 export default class Admin extends Page {
-	constructor(){
-		super('Administration');
+  constructor( ){
+		super( 'Administration' );
   }
-
+  
    render():string {
     let cc = "";
     var name = "username" + "=";
@@ -75,19 +79,10 @@ export default class Admin extends Page {
           <button type="submit" class="btn btn-primary mb-2">Supprimer</button>
           </form>
           `;
-      }else if(cc.length > 0 ) {
-        return "<h4>Mes prochains evenements :</h4><br/><form class='evenements'><button type=\"submit\" class=\"btn btn-primary mb-2\">Afficher</button></form>";
-      }else{
+      }else if(!cc.length > 0){
         return "vous n'avez pas les droits pour accéder à cette page";
       }
     }
-      mount(container:HTMLElement):void {
-        console.log("coucou");
-        $('form.ajouter').submit( this.submit );
-        $('form.supprimer').submit( this.submitdeux );
-        $('form.moderer').submit( this.submittrois );
-        //$('.evenements').submit(this.submittrois);
-      }
 
       submit(event:Event):void {
         event.preventDefault();
@@ -286,4 +281,22 @@ export default class Admin extends Page {
           .catch( error => alert(`Enregistrement impossible : ${error.message}`) );
         }
       }
+
+      mount(container:HTMLElement):void {
+        console.log("coucou");
+        $('form.ajouter').submit( this.submit );
+        $('form.supprimer').submit( this.submitdeux );
+        $('form.moderer').submit( this.submittrois );
+        fetch( 'http://localhost:8080/api/v1/events/axel/', {
+          method:'GET',
+          headers: { 'Content-Type': 'application/json' },
+        })
+          .then( (response:Response) => response.json() )
+          .then( (data:any) => {
+            document.querySelector('.newsContainer').innerHTML="";
+            this.data = data;
+            console.log(data);
+        });
+      }
+
 }
