@@ -1,5 +1,7 @@
 package fr.ulille.iut.pizzaland.ressources;
 
+import com.sendgrid.Content;
+import com.sendgrid.Email;
 import fr.ulille.iut.pizzaland.dao.DataAccess;
 import fr.ulille.iut.pizzaland.dao.EvenementEntity;
 import fr.ulille.iut.pizzaland.dao.UtilisateurEntity;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 @Path("/events")
 public class EvenementRessource {
     final static Logger logger = LoggerFactory.getLogger(UtilisateurRessource.class);
+    final static String FROM_EMAIL = "dacruzaxel21@gmail.com";
 
     @Context
     public UriInfo uriInfo;
@@ -108,6 +111,21 @@ public class EvenementRessource {
             ee.getReservations().add(dataAccess.getUserByLogin(login));
             dataAccess.updateEvent(ee);
             dataAccess.closeConnection(true);
+            String TO_EMAIL = dataAccess.getUserByLogin(login).getEmail();
+            EvenementEntity evenementEntity = null;
+            for (EvenementEntity evenementEntity1 : dataAccess.getEventsByLogin(login)) {
+                if(evenementEntity1.getNom().equals(nom)) {
+                    evenementEntity = evenementEntity1;
+                }
+            }
+            System.out.println("TO EMAIL: " + TO_EMAIL);
+            SendMail sendMail = new SendMail(new Email(FROM_EMAIL), "Evenement à venir", new Email("dacruzaxel21@gmail.com"), new Content());
+            if(sendMail.sendMail("Félicitations ! Vous venez de vous inscrire au cours " + nom + ". Le " + evenementEntity.getDate() + " à " + evenementEntity.getHeure() + "jusque " + evenementEntity.getHeureFin() + ", au prix de " + evenementEntity.getPrix() + ". Je vous attendrai !")) {
+                System.out.println("MAIL IS SEND TO " + TO_EMAIL);
+            }
+            else {
+                System.out.println("MAIL NOT SEND");
+            }
             return Response.status(Response.Status.NO_CONTENT).build();
         } catch (Exception e) {
             dataAccess.closeConnection(false);
