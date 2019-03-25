@@ -1,5 +1,3 @@
-Sprint 10 
-
 #Rétrospective de sprint 10 
 Nom du scrum master du sprint : Lecocq Valentin.
 
