@@ -19,7 +19,6 @@ export default class HomePage extends Page {
 	}
 
 	mount(events:HTMLElement):void {
-		console.log("cc");
 		fetch( 'http://localhost:8080/api/v1/events', {
 			method:'GET',
 			headers: { 'Content-Type': 'application/json' },

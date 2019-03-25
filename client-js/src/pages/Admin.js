@@ -90,7 +90,6 @@ export default class Admin extends Page {
       }
 
       submit(event:Event):void {
-        console.log("coucou");
         event.preventDefault();
         const fieldNames:Array<string> = [
           'date',
@@ -165,7 +164,6 @@ export default class Admin extends Page {
       }
 
       submitdeux(event:Event):void {
-        console.log("coucou");
         event.preventDefault();
         const fieldNames:Array<string> = [
           'nomd',
@@ -229,7 +227,6 @@ export default class Admin extends Page {
       }
 
       submittrois(event:Event):void {
-        console.log("coucou");
         event.preventDefault();
         const fieldNames:Array<string> = [
           'nomt',

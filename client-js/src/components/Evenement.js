@@ -15,9 +15,9 @@ export default class Evenement extends Component {
 						new Component('p', null, `Places : ${evenement.reservations.length}/${evenement.place}`),
 						new Component('p', null, `Description : <br/>${evenement.description}<br/>Prix à ${evenement.prix}€`),
 						new Component('p', {name:'class', value: 'personnes'}, `Personnes déjà inscrites : ${evenement.reservations.forEach(function(element) {
-							console.log(element.login);
+							element.login;
 						  })}`),
-                        new Component('input', {name:'type', value: "submit"})
+                  new Component('input', {name:'type', value: "submit"})
 					])
 				])	
 			])
