@@ -14,22 +14,26 @@ export default class InscriptionPage extends Page {
 	render():string {
 		return `<form class="InscriptionPage">
         <div class="form-row">
-        <div class="col-md-4 mb-3">
-          <label for="validationDefault01">Login Utilisateur</label>
-          <input type="text" class="form-control" id="login" name="login" placeholder="First name" value="Mark" required>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="validationDefaultUsername">E-mail de connexion</label>
-          <div class="input-group">
-            <input type="text" class="form-control" id="email" name="email" placeholder="Votre e-mail" aria-describedby="inputGroupPrepend2" required>
-          </div>
-        </div>
-      </div>
+        <div class="col-md-6 mb-2">
+      <label for="validationTooltip01">Nom</label>
+      <input type="text" class="form-control" name="nom" id="validationTooltip01" placeholder="Nom" required>
+			</div>
+			<div class="col-md-6 mb-2">
+				<label for="validationTooltip02">Prénom</label>
+				<input type="text" class="form-control" name="prenom" id="validationTooltip03" placeholder="Prénom" required>
+			</div>
+			</div>
+			<input type="hidden" class="login" name="login" id="validationTooltip04" placeholder="login">
       <div class="form-row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-6 mb-2">
           <label for="validationDefault03">Mot de passe</label>
           <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
-        </div>
+				</div>
+				<div class="col-md-6 mb-2">
+					<label for="validationDefaultUsername">E-mail de connexion</label>
+					<input type="text" class="form-control" id="email" name="email" placeholder="Votre e-mail" aria-describedby="inputGroupPrepend2" required>
+				</div>
+			<hr class="my-4">
       <div class="form-group">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
@@ -47,6 +51,7 @@ export default class InscriptionPage extends Page {
 	}
 
 	submit(event:Event):void {
+
 		event.preventDefault();
 		const fieldNames:Array<string> = [
 			'login',
@@ -58,7 +63,9 @@ export default class InscriptionPage extends Page {
 		const errors:Array<string> = [];
 
 		fieldNames.forEach( (fieldName:string) => {
-			const value = this.getFieldValue(fieldName);
+			let value = this.getFieldValue(fieldName);
+			if(fieldName == "login")
+			value = this.getFieldValue("prenom") + "_" + this.getFieldValue("nom").substring(0,1);
 			if ( !value ){
 				errors.push( `Le champ ${fieldName} ne peut pas être vide !` );
 			}
