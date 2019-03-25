@@ -90,6 +90,7 @@ export default class Connexion extends Page {
 					alert(`Utilisateur "${utilisateur.login}" s'est connecté avec succès ! Réservation possible.`);		
 					document.cookie = `username=${pseudo};`;
 					p= 0;
+					window.location.reload();
 				}else if(p == 3) {
 					var d = new Date;
 	    			d.setTime(d.getTime() + 24*60*60*1000*-1);
@@ -98,9 +99,6 @@ export default class Connexion extends Page {
 					document.cookie = `username=admin;`;
 					p = 0;
 					window.location.reload();
-					document.querySelector("li:nth-child(2)").innerHTML = "";
-					document.querySelector("li:nth-child(3)").innerHTML = "";
-					console.log(document.querySelector("ul:first-child").innerHTML);
 				}else {
 					alert(`Mauvaise connexion`);
 				}

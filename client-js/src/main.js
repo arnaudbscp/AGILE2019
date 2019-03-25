@@ -94,4 +94,7 @@ renderHome();
 if(getCookie("username") !== ""){
 	document.querySelector("li:nth-child(2)").innerHTML = "";
 	document.querySelector("li:nth-child(3)").innerHTML = "";
+	//let deco = document.createElement("li");
+	//deco.textContent = "Déconnexion";
+	//document.querySelector("ul").appendChild(deco);
 }

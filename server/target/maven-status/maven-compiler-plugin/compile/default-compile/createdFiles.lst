@@ -11,6 +11,7 @@ fr/ulille/iut/pizzaland/CORSFilter.class
 fr/ulille/iut/pizzaland/ApiV1.class
 fr/ulille/iut/pizzaland/ressources/UtilisateurRessource.class
 fr/ulille/iut/pizzaland/dao/EvenementEntity.class
+fr/ulille/iut/pizzaland/ressources/Example.class
 fr/ulille/iut/pizzaland/ressources/EvenementRessource.class
 fr/ulille/iut/pizzaland/dao/DatabaseConstraintException.class
 fr/ulille/iut/pizzaland/dao/UtilisateurEntity.class
