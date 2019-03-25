@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 @Path("/events")
 public class EvenementRessource {
     final static Logger logger = LoggerFactory.getLogger(UtilisateurRessource.class);
-    final static String FROM_EMAIL = "dacruzaxel21@gmail.com";
+    final static String FROM_EMAIL = "ramponno@mail.fr";
 
     @Context
     public UriInfo uriInfo;
