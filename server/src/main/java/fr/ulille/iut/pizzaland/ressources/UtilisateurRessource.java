@@ -1,5 +1,7 @@
 package fr.ulille.iut.pizzaland.ressources;
 
+import com.sendgrid.Content;
+import com.sendgrid.Email;
 import fr.ulille.iut.pizzaland.dao.DataAccess;
 import fr.ulille.iut.pizzaland.dao.UtilisateurEntity;
 import fr.ulille.iut.pizzaland.dto.UtilisateurDto;
@@ -18,7 +20,6 @@ import java.util.stream.Collectors;
 @Path("/users")
 public class UtilisateurRessource {
     final static Logger logger = LoggerFactory.getLogger(UtilisateurRessource.class);
-
     @Context
     public UriInfo uriInfo;
 

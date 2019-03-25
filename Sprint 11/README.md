@@ -1,27 +1,22 @@
-# Rétrospective de sprint 11
-Nom du scrum master du sprint : Lecocq Valentin.
+# rétrospective de sprint 11
+Nom du scrum master du sprint: Lecocq Valentin
 
 ## Ce que nous avons fait durant ce sprint
-
-Côté android, nous avons modifié le système d'affichage de la date et de l'heure lors de la création d'un évènement pour l'administrateur.
-Nous avons continué la gestion des places pour ne pas dépasser le nombre maximal.
-Nous avons également continué le système de mail lorsqu'une personne s'inscrit.
-Nous avons réalisé la réservation et la validation d'un évènement.
+Pour l'application android, nous avons finaliser la page de l'administrateur en ajoutant les champs manquants, et nous avons débuter le drawer pour gérer ses inscriptions. Nous pouvons désormais afficher les utilisateurs inscrits sur le site, nous avons également un message s'affichant pour bien confirmer que la réservation a été prise en compte. Nous avons aussi continuer à travailler sur l'envoi du mail.
 
 ## Ce que nous allons faire durant le prochain sprint
-Nous allons finaliser le système de de gestion des places. Côté android nous allons continuer d'améliorer le système d'administration. Nous allons continuer la fonctionnalité permettant d'envoyer un mail. Sur le serveur, nous prévoyons d'ajouter d'autres fonctions. Nous allons continuer à développer des pages en JavaScript.
-
+Pour android, nous souhaitons, continuer le drawer et l'intégrer à notre version stable. Nous continuons notre fonctionnalité pour envoyer le mail automatiquement. Nous souhaitons ajouter des fonctionnalités comme la supression de compte.
 
 ## PDCA
 
-## Qu'avons nous testé durant ce sprint ?
-Nous avons repris notre système de binôme pour travailler en groupe sur une même tâche.
+## Qu'avons-nous testé durant ce sprint ?
+Nous avons réparti nos tâches de manière différente suite à une absence, afin d'optimiser notre productivité et d'être performant.
 
 ## Qu'avons nous observé ?
-Ce système fonctionne bien et nous permet toujours d'avancer correctement.
+Nous avons réussis à avancer sans ralentissement majeur.
 
-## Quelle décision prenons nous suite à cette expérience
-Nous allons continuer sur notre technique.
+## Quelle décision prenon-nous suite à cette expérience ?
+Cela confirme notre première tentative de répartition des tâches en cas d'effectif réduis pour pouvoir avancer.
 
-## À quoi verra-t-on que celà à fonctionné ? 
-Si nous arrivons à nos objectifs à la fin du projet.
+## À quoi verra-t-on que cela a fonctionné ?
+Si nous arrivons à ne pas prendre de retard sur le projet.

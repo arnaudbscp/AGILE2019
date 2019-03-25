@@ -15,20 +15,13 @@ export default class InscriptionPage extends Page {
 		return `<form class="InscriptionPage">
         <div class="form-row">
         <div class="col-md-4 mb-3">
-          <label for="validationDefault01">First name</label>
+          <label for="validationDefault01">Login Utilisateur</label>
           <input type="text" class="form-control" id="login" name="login" placeholder="First name" value="Mark" required>
         </div>
         <div class="col-md-4 mb-3">
-          <label for="validationDefault02">Last name</label>
-          <input type="text" class="form-control" id="validationDefault02" name="id" placeholder="Last name" value="Otto" >
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="validationDefaultUsername">Username</label>
+          <label for="validationDefaultUsername">E-mail de connexion</label>
           <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend2">@</span>
-            </div>
-            <input type="text" class="form-control" id="email" name="email" placeholder="Username" aria-describedby="inputGroupPrepend2" required>
+            <input type="text" class="form-control" id="email" name="email" placeholder="Votre e-mail" aria-describedby="inputGroupPrepend2" required>
           </div>
         </div>
       </div>
@@ -37,20 +30,11 @@ export default class InscriptionPage extends Page {
           <label for="validationDefault03">Mot de passe</label>
           <input type="text" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
         </div>
-        <div class="col-md-3 mb-3">
-          <label for="validationDefault04">State</label>
-          <input type="text" class="form-control" id="validationDefault04" placeholder="State" >
-        </div>
-        <div class="col-md-3 mb-3">
-          <label for="validationDefault05">Zip</label>
-          <input type="text" class="form-control" id="validationDefault05" placeholder="Zip" >
-        </div>
-      </div>
       <div class="form-group">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
           <label class="form-check-label" for="invalidCheck2">
-            Agree to terms and conditions
+            J'accepte les conditions d'utilisation
           </label>
         </div>
       </div>

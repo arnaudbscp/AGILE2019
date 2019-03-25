@@ -1,34 +1,22 @@
-# Rétrospective de sprint 10 
-
-Nom du scrum master du sprint : Lecocq Valentin.
+# Rétrospective de sprint 10
+Nom du scrum master du sprint: Lecocq Valentin.
 
 ## Ce que nous avons fait durant ce sprint
-
-Le problème de git a été résolu.
-Nous travaillons sur la manière de  gérer le nombre de places maximales.
-Sur le serveur, nous avons continué de faire des requêtes sur les utilisateurs et les évènements, nous avons désormais la possibilité de supprimer des utilisateurs. 
-Côté android, nous avons commencé à développer l'interface du monde administrateur. 
+Pour l'application android, nous avons continué la page d'administration. Nous avons rajouté des fonctions aux serveurs comme le fait de pouvoir supprimer un utilisateur. En JavaScript, nous avons créé la page: "en savoir plus" ainsi qu'un affichage dans la console pour les utilisateurs. La fonctionnalité du mail nous pose problème, nous avançons dessus mais lentement.
 
 ## Ce que nous allons faire durant le prochain sprint
-
-Nous allons continuer la page de l'administrateur pour le côté android.
-Nous allons commencer la confirmation par mail quand une personne est inscrite.
-Nous allons améliorer le système de réservation et de validation.
+En android nous souhaitons terminer la page d'administration et débuter le volet permettant de voir ses inscriptions. Nous voulons ajouter des fonctionnalités au serveur, avancer sur le mail de confirmation et ajuster l'affichage en Javascript.
 
 ## PDCA
 
-## Qu'avons nous testé durant ce sprint ?
+## Qu'avons-nous testé durant ce sprint ? 
+Nous avons continué à travailler en binôme, avec une bonne communication pour relier les différents composants entre eux.
 
-Nous nous sommes réparti les tâches de manière différente suite à une absence, afin d'avancer aussi efficacement.
+## Qu'avons-nous observé ?
+La technique marche toujours bien.
 
-## Qu'avons nous observé ?
+## Quelle décision prenons-nous suite à cette expérience ?
+La communication et le travail de groupe sont des éléments essentiels pour réussir le projet agile, nous allons conitnuer dans cette direction.
 
-Qu'une bonne répartition des tâches permettait d'avancer, même si une personne est absente.
-
-## Quelle décision prenons nous suite à cette expérience
-
-De toujours bien répartir les tâches, communiquer et faire le point avec l'équipe à chaque début de sprint.
-
-## À quoi verra-t-on que celà à fonctionné ? 
-
-Si nous ne prenons pas de retard sur le plus long terme.
+## À quoi verra-t-on que cela a fonctionné ?
+Cela aura fonctionné si nous atteignons nos objectifs finaux mardi soir.
