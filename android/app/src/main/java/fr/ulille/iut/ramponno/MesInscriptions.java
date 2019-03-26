@@ -38,7 +38,7 @@ public class MesInscriptions extends AppCompatActivity implements NavigationView
     BaseAccess base = new BaseAccess(this);
 
     HashMap<String, Integer> logos = new HashMap<String, Integer>();
-
+    String userRole = "user";
     String[] nomEvent;
     public static final String SERVER_KEY = "SERVEUR";
     List<Item> items = new ArrayList<Item>();
@@ -65,6 +65,9 @@ public class MesInscriptions extends AppCompatActivity implements NavigationView
         if (intent.hasExtra("login")) {
             login = intent.getStringExtra("login");
         }
+        if (intent.hasExtra("role")) {
+            userRole = intent.getStringExtra("role");
+        }
         if (login.equals("none")){
             Toast toast = Toast.makeText(getApplicationContext(), "Veuillez vous connecter", Toast.LENGTH_LONG);
             toast.show();
@@ -89,6 +92,9 @@ public class MesInscriptions extends AppCompatActivity implements NavigationView
         logos.put("Cours", R.drawable.cours);
         logos.put("Tapisserie", R.drawable.tapisserie);
         logos.put("Stage", R.drawable.stage);
+
+        Menu nav_Menu = navigationView.getMenu();
+        if (!userRole.equals("admin"))nav_Menu.findItem(R.id.nav_share).setVisible(false);
     }
 
     @Override
@@ -127,12 +133,14 @@ public class MesInscriptions extends AppCompatActivity implements NavigationView
             // Lorsque je clique sur "Mes inscriptions".
             Intent intent = new Intent(this, MesInscriptions.class);
             intent.putExtra("login", login);
+            intent.putExtra("role", userRole);
             startActivity(intent);
             finish();
         }else if(id == R.id.nav_share){
             //Lorsque je clique sur le mode admin
             Intent intent = new Intent(this, Admin.class);
             intent.putExtra("login", login);
+            intent.putExtra("role", userRole);
             startActivity(intent);
             finish();
         }
@@ -243,6 +251,7 @@ public class MesInscriptions extends AppCompatActivity implements NavigationView
                     intent.putExtra("placesUtilise", placesUtilises[position]);
                     intent.putExtra("desc", descriptions[position]);
                     intent.putExtra("login", login);
+                    intent.putExtra("role", userRole);
                     intent.putExtra("inscrits", inscrits.get(position));
                     startActivity(intent);
                 }
@@ -257,6 +266,7 @@ public class MesInscriptions extends AppCompatActivity implements NavigationView
     public void startAdmin(View view){
         Intent intent = new Intent(this, MesInscriptions.class);
         intent.putExtra("login", login);
+        intent.putExtra("role", userRole);
         startActivity(intent);
     }
 

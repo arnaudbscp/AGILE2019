@@ -1,8 +1,10 @@
 package fr.ulille.iut.ramponno;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -28,12 +30,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Details extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    String userRole = "user";
     TextView titreView;
     TextView dateView;
     TextView heureView;
@@ -83,6 +87,9 @@ public class Details extends AppCompatActivity
         if (intent.hasExtra("inscrits")) {
             inscrits = intent.getStringArrayExtra("inscrits");
         }
+        if (intent.hasExtra("role")) {
+            userRole = intent.getStringExtra("role");
+        }
 
         titreView.setText(titre + "");
         dateView.setText(date + "");
@@ -116,6 +123,11 @@ public class Details extends AppCompatActivity
 
         //Insert Adapter into List
         inscritList.setAdapter(adapter2);
+
+        Menu nav_Menu = navigationView.getMenu();
+        if (!userRole.equals("admin"))nav_Menu.findItem(R.id.nav_share).setVisible(false);
+
+
     }
 
     @Override
@@ -131,7 +143,7 @@ public class Details extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.navigation, menu);
+        getMenuInflater().inflate(R.menu.details, menu);
         return true;
     }
 
@@ -154,12 +166,14 @@ public class Details extends AppCompatActivity
             // Lorsque je clique sur "Mes inscriptions".
             Intent intent = new Intent(this, MesInscriptions.class);
             intent.putExtra("login", login);
+            intent.putExtra("role", userRole);
             startActivity(intent);
             finish();
         }else if(id == R.id.nav_share){
             //Lorsque je clique sur le mode admin
             Intent intent = new Intent(this, Admin.class);
             intent.putExtra("login", login);
+            intent.putExtra("role", userRole);
             startActivity(intent);
             finish();
         }
@@ -186,13 +200,60 @@ public class Details extends AppCompatActivity
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            Log.d("debugparceque",""+2);
                             base.getJsonObjectResponse(response);
+                            AlertDialog.Builder builder = new AlertDialog.Builder(Details.this);
+                            builder.setCancelable(true);
+                            builder.setTitle("Inscription Confirmée");
+                            try {
+                                builder.setMessage("vous êtes bien inscrit a :"+response.getString("nom"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                            builder.setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    });
+
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
                         }
                     },
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            if (error.getMessage() == null){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Details.this);
+                                builder.setCancelable(true);
+                                builder.setTitle("déja inscrit");
+                                builder.setMessage("vous êtes déja inscrit a : "+titreView.getText().toString());
+                                builder.setPositiveButton("OK",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                            }
+                                        });
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+
+                            } else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(Details.this);
+                                builder.setCancelable(true);
+                                builder.setTitle("Inscription Confirmée");
+                                builder.setMessage("vous êtes bien inscrit a :"+titreView.getText().toString());
+                                builder.setPositiveButton("OK",
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                Details.this.finish();
+                                            }
+                                        });
+
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
                         }
                     });
             Log.d("debugparceque",""+4);

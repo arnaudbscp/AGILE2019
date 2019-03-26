@@ -44,6 +44,7 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
     List<Item> items = new ArrayList<Item>();
     String login = "none";
 
+    String userRole = "user";
     HashMap<String, Integer> logos = new HashMap<String, Integer>();
 
     @Override
@@ -71,6 +72,9 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
         if (intent.hasExtra("login")) {
             login = intent.getStringExtra("login");
         }
+        if (intent.hasExtra("role")) {
+            userRole = intent.getStringExtra("role");
+        }
         if (login.equals("none")){
             Toast toast = Toast.makeText(getApplicationContext(), "Veuillez vous connecter", Toast.LENGTH_LONG);
             toast.show();
@@ -94,6 +98,9 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
         logos.put("Cours", R.drawable.cours);
         logos.put("Tapisserie", R.drawable.tapisserie);
         logos.put("Stage", R.drawable.stage);
+
+        Menu nav_Menu = navigationView.getMenu();
+        if (!userRole.equals("admin"))nav_Menu.findItem(R.id.nav_share).setVisible(false);
     }
 
     @Override
@@ -132,11 +139,13 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
             // Lorsque je clique sur "Mes inscriptions".
             Intent intent = new Intent(this, MesInscriptions.class);
             intent.putExtra("login", login);
+            intent.putExtra("role", userRole);
             startActivity(intent);
         }else if(id == R.id.nav_share){
             //Lorsque je clique sur le mode admin
             Intent intent = new Intent(this, Admin.class);
             intent.putExtra("login", login);
+            intent.putExtra("role", userRole);
             startActivity(intent);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -251,6 +260,7 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
                     intent.putExtra("placesUtilise", placesUtilises[position]);
                     intent.putExtra("desc", descriptions[position]);
                     intent.putExtra("login", login);
+                    intent.putExtra("role", userRole);
                     intent.putExtra("inscrits", inscrits.get(position));
                     startActivity(intent);
                 }
@@ -265,10 +275,11 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
     public void startAdmin(View view){
         Intent intent = new Intent(this, Agenda.class);
         intent.putExtra("login", login);
+        intent.putExtra("role", userRole);
         startActivity(intent);
     }
 
-    public void finish(View view){
+    public void finishActivity(View view){
         finish();
     }
 

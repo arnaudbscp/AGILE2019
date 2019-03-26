@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     TextView mailField;
     TextView passField;
     ProgressBar progressView;
+    public static String userRole;
 
 
     public static final String SERVER_KEY = "SERVEUR";
@@ -123,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
                         }else{
                             Intent intent = new Intent(MainActivity.this, Agenda.class);
                             intent.putExtra("login",retour);
+                            intent.putExtra("role", userRole);
                             startActivity(intent);
                         }
 
@@ -156,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 if (mailVerif.equals(enteredMail)){
                     mailFound = true;
                     if (passVerif.equals(enteredPass)){
+                        userRole = (data[4].substring(data[4].indexOf(":")+1));
                         return (data[2].substring(data[2].indexOf(":")+1));
                     }
                 }

@@ -11,7 +11,9 @@
             android:title="Mes inscriptions" />
     </group>
 
-    <item android:title="Administration">
+    <item
+        android:id="@+id/AdminView"
+        android:title="Administration">
         <menu>
             <item
                 android:id="@+id/nav_share"

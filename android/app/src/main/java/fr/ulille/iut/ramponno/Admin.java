@@ -1,5 +1,6 @@
 package fr.ulille.iut.ramponno;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -48,6 +49,7 @@ import java.util.List;
 public class Admin extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    MenuItem AdminView;
     CalendarView cv;
     TextView date;
     TextView heure;
@@ -74,6 +76,8 @@ public class Admin extends AppCompatActivity
     String selected = "";
     TextView prixTxt;
     String login = "none";
+    NavigationView navigationView;
+    String userRole = "user";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,7 +105,6 @@ public class Admin extends AppCompatActivity
         retour = (Button) findViewById(R.id.retour);
         validDate = (Button) findViewById(R.id.validerDate);
         imgButton = (ImageButton) findViewById(R.id.calendarButton);
-        descButton = (Button) findViewById(R.id.descButton);
 
 
         descriptionsDispo.put("Location d`outils",getString(R.string.desc_outil));
@@ -115,6 +118,9 @@ public class Admin extends AppCompatActivity
         Intent intent = getIntent();
         if (intent.hasExtra("login")) {
             login = intent.getStringExtra("login");
+        }
+        if (intent.hasExtra("role")) {
+            userRole = intent.getStringExtra("role");
         }
         if (login.equals("none")){
             Toast toast = Toast.makeText(getApplicationContext(), "Veuillez vous connecter", Toast.LENGTH_LONG);
@@ -137,7 +143,14 @@ public class Admin extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Menu nav_Menu = navigationView.getMenu();
+        if (!userRole.equals("admin"))nav_Menu.findItem(R.id.nav_share).setVisible(false);
+
     }
+
+
+
 
     public void onClick(View view){
         finish();
@@ -179,12 +192,14 @@ public class Admin extends AppCompatActivity
             // Lorsque je clique sur "Mes inscriptions".
             Intent intent = new Intent(this, MesInscriptions.class);
             intent.putExtra("login", login);
+            intent.putExtra("role", userRole);
             startActivity(intent);
             finish();
         }else if(id == R.id.nav_share){
             //Lorsque je clique sur le mode admin
             Intent intent = new Intent(this, Admin.class);
             intent.putExtra("login", login);
+            intent.putExtra("role", userRole);
             startActivity(intent);
             finish();
         }
