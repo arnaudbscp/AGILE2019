@@ -4,7 +4,9 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     TextView passField;
     ProgressBar progressView;
     public static String userRole;
+    SharedPreferences settings;
+    SharedPreferences.Editor edit;
 
 
     public static final String SERVER_KEY = "SERVEUR";
@@ -58,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
         progressView = findViewById(R.id.login_progress);
 
         queue = Volley.newRequestQueue(MainActivity.this);
+
+        settings = getSharedPreferences("Test", Context.MODE_PRIVATE);
+        edit = settings.edit();
+        String username = settings.getString("username","none");
+        if (!username.equals("none")){
+            edit.putString("username", "none");
+            edit.apply();
+            fastLogin(username);
+        }
 
     }
     public void hideKeyboard() {
@@ -159,6 +173,11 @@ public class MainActivity extends AppCompatActivity {
                     mailFound = true;
                     if (passVerif.equals(enteredPass)){
                         userRole = (data[4].substring(data[4].indexOf(":")+1));
+                        if (((CheckBox)(findViewById(R.id.KeepConnect))).isChecked()) {
+                            edit.putString("username", mailVerif);
+                            edit.apply();
+                        }else{
+                        }
                         return (data[2].substring(data[2].indexOf(":")+1));
                     }
                 }
@@ -254,6 +273,72 @@ public class MainActivity extends AppCompatActivity {
             progressView.setVisibility(show ? View.VISIBLE : View.GONE);
         }
     }*/
+    private void fastLogin(final String mail){
+        Log.d(base.LOG_TAG, "Send started");
+        String uri = "http://"+Data.adresse+"/api/v1/users";
+        Log.d(base.LOG_TAG, "Uri: " + uri);
+
+        JsonArrayRequest arrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                uri,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d("coucou","coucou");
+                        String retour = verifLogsFast(response, mail);
+                        Log.d("retour",retour);
+                        Toast toast = Toast.makeText(getApplicationContext(), retour, Toast.LENGTH_SHORT);
+                        toast.show();
+                        if (retour.equals("noMail")){
+                        }else{
+                            Intent intent = new Intent(MainActivity.this, Agenda.class);
+                            intent.putExtra("login",retour);
+                            intent.putExtra("role", userRole);
+                            edit.putString("username", mail);
+                            edit.apply();
+                            startActivity(intent);
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        base.showError(error);
+                    }
+                });
+
+        arrayRequest.setTag(base.VOLLEY_TAG);
+        base.queue.add(arrayRequest);
+        Log.d(base.LOG_TAG, "Send done");
+
+    }
+    public String verifLogsFast(JSONArray response, String enteredMail){
+        int i=0;
+        boolean mailFound = false;
+        while ( i < response.length()) {
+            try {
+                String dataString = response.getString(i);
+                dataString = dataString.replaceAll("\"", "").replaceAll("\\}", "").replaceAll("\\{","");
+                String[] data = dataString.split(",");
+                String mailVerif = (data[0].substring(data[0].indexOf(":")+1));
+                if (mailVerif.equals(enteredMail)){
+                    userRole = (data[4].substring(data[4].indexOf(":")+1));
+                    mailFound = true;
+                    return enteredMail;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            i++;
+
+        }
+        Toast toast = Toast.makeText(getApplicationContext(), mailFound+"", Toast.LENGTH_SHORT);
+        toast.show();
+        return  "noMail";
+    }
 
 
 }

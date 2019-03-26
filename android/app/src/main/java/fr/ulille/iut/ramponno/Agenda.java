@@ -1,6 +1,8 @@
 package fr.ulille.iut.ramponno;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.Image;
 import android.support.design.widget.NavigationView;
@@ -47,6 +49,7 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
     String userRole = "user";
     HashMap<String, Integer> logos = new HashMap<String, Integer>();
 
+    SharedPreferences.Editor edit;
     @Override
     protected void onStart() {
         super.onStart();
@@ -109,6 +112,11 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            SharedPreferences settings;
+            settings = getSharedPreferences("Test", Context.MODE_PRIVATE);
+            edit = settings.edit();
+            edit.putString("username", "none");
+            edit.apply();
             super.onBackPressed();
         }
     }
@@ -280,6 +288,11 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
     }
 
     public void finishActivity(View view){
+        SharedPreferences settings;
+        settings = getSharedPreferences("Test", Context.MODE_PRIVATE);
+        edit = settings.edit();
+        edit.putString("username", "none");
+        edit.apply();
         finish();
     }
 

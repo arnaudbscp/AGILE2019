@@ -35,12 +35,12 @@
         android:id="@+id/connectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:onClick="connect"
         android:text="Se connecter"
         app:layout_constraintEnd_toEndOf="@+id/passField"
         app:layout_constraintStart_toStartOf="@+id/passField"
-        app:layout_constraintTop_toBottomOf="@+id/passField" />
+        app:layout_constraintTop_toBottomOf="@+id/KeepConnect" />
 
     <EditText
         android:id="@+id/passField"
@@ -119,6 +119,16 @@
         android:textColor="#D50000"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="@+id/passField"
+        app:layout_constraintTop_toBottomOf="@+id/passField" />
+
+    <CheckBox
+        android:id="@+id/KeepConnect"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Rester connecté"
+        app:layout_constraintEnd_toEndOf="@+id/connectButton"
+        app:layout_constraintStart_toStartOf="@+id/connectButton"
         app:layout_constraintTop_toBottomOf="@+id/passField" />
 
 </android.support.constraint.ConstraintLayout>
