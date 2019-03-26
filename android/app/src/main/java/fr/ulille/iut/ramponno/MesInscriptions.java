@@ -259,4 +259,8 @@ public class MesInscriptions extends AppCompatActivity implements NavigationView
         intent.putExtra("login", login);
         startActivity(intent);
     }
+
+    public void finish(View view){
+        finish();
+    }
 }

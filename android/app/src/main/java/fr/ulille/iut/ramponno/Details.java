@@ -206,5 +206,9 @@ public class Details extends AppCompatActivity
         }
     }
 
+    public void finish(View view){
+        finish();
+    }
+
 
 }

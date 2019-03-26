@@ -27,7 +27,7 @@ public class Data implements Parcelable {
     static final int STATUS_WAITING = -2;
     public static int STATUS_NETWORK_ERROR = 999;
     public static int STATUS_INTERNAL_ERROR = 998;
-    static final String adresse = "localhost:8080";
+    static final String adresse = "10.0.2.2:8080";
 
 
     // Constant linked to order of resource for preset details

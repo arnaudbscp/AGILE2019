@@ -268,7 +268,8 @@ public class Agenda extends AppCompatActivity implements NavigationView.OnNaviga
         startActivity(intent);
     }
 
-
-
+    public void finish(View view){
+        finish();
+    }
 
 }
